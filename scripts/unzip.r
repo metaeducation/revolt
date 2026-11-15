@@ -30,12 +30,12 @@ Rebol [
             zip:deep %new-zip.zip %my-directory/
 
         from a url:
-            zip %new-zip.zip ftp://192.168.1.10/my-file.txt
+            zip %new-zip.zip <ftp://192.168.1.10/my-file.txt>
 
         any combination of these:
             zip:deep %new-zip.zip  [
                 %readme.txt "An example"
-                ftp://192.168.1.10/my-file.txt
+                <ftp://192.168.1.10/my-file.txt>
                 %my-directory
             ]
 

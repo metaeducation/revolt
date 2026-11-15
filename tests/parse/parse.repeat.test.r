@@ -160,7 +160,7 @@
     ~parse-mismatch~ !! (parse [a a b b] [repeat 2 'a repeat 3 'b])
 ]
 
-[https://github.com/red/red/issues/564
+[<https://github.com/red/red/issues/564>
     ~parse-incomplete~ !! (parse [a] [repeat 0 one])
     ('a = parse [a] [repeat 0 one 'a])
     (
@@ -172,7 +172,7 @@
     )
 ]
 
-[https://github.com/red/red/issues/564
+[<https://github.com/red/red/issues/564>
     ~parse-incomplete~ !! (parse "a" [repeat 0 one])
     (#a = parse "a" [repeat 0 one #a])
     (
@@ -184,7 +184,7 @@
     )
 ]
 
-[https://github.com/red/red/issues/4591
+[<https://github.com/red/red/issues/4591>
     (heavy-void? parse [] [repeat 0 [ignore me]])
     (void? parse [] [^ repeat 0 "ignore me"])
     (heavy-void? parse [] [repeat 0 repeat 0 [ignore me]])

@@ -340,7 +340,7 @@
 (not same? null okay)
 ; port! values; reflexivity; in this case the error should not be generated, I think
 (
-    p: make port! http://
+    p: make port! <http://>
     any [
         error? rescue [same? p p]
         same? p p

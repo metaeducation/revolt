@@ -97,7 +97,7 @@
     ]
 )
 
-[https://github.com/red/red/issues/678
+[<https://github.com/red/red/issues/678>
     ("cat" = parse "catcatcatcat" [repeat 4 "cat"])
     ("cat" = parse "catcatcat" [repeat 3 "cat"])
     ("cat" = parse "catcat" [repeat 2 "cat"])

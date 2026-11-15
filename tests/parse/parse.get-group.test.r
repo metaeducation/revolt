@@ -65,7 +65,7 @@
     )
 ] ok)]
 
-[https://github.com/red/red/issues/562
+[<https://github.com/red/red/issues/562>
     ~parse-incomplete~ !! (parse [+] [opt some ['+ cond (null)]])
     ~parse-incomplete~ !! (parse "+" [opt some [#+ cond (null)]])
 ]
@@ -87,7 +87,7 @@
 ]
 
 
-[https://github.com/red/red/issues/563
+[<https://github.com/red/red/issues/563>
     (
         res: ~
         f563: lambda [t [text!]] [did try parse t [opt some r]]
@@ -107,7 +107,7 @@
 ;     => f "20,]]"    (l=2, x="0,")
 ;        => f "0,"    (l=0, x="")
 ;
-[https://github.com/red/red/issues/564
+[<https://github.com/red/red/issues/564>
     (
         f: func [
             s [text!]

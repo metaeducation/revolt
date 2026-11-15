@@ -49,7 +49,7 @@
     ok
 )
 
-[https://github.com/metaeducation/ren-c/issues/1106
+[<https://github.com/metaeducation/ren-c/issues/1106>
     (trash? help "any")
 ]
 

@@ -34,7 +34,7 @@
         (0x0)
         ()
         a/b
-        (make port! http://)
+        (make port! <http://>)
         /run-word
         a.b:
         a:
@@ -42,7 +42,7 @@
         <tag>
         1:00
         1.2.3
-        http://
+        <http://>
     ][
         if null = not item [
             continue

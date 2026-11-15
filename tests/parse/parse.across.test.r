@@ -15,7 +15,7 @@
     y = "bbb"
 })
 
-[https://github.com/red/red/issues/1093
+[<https://github.com/red/red/issues/1093>
    (
         se53-copied: copy ""
         s: ~
@@ -781,7 +781,7 @@
 [(
     all [
         let name
-        "example" = parse http://example.com [
+        "example" = parse <http://example.com> [
             "http:" some "/" name: between <here> ".com"
         ]
         name = "example"

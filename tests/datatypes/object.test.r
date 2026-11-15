@@ -192,7 +192,7 @@
 
 
 [
-    https://github.com/metaeducation/ren-c/issues/907
+    <https://github.com/metaeducation/ren-c/issues/907>
 
     (
         o: make object! []

@@ -158,7 +158,7 @@ export proto-parser: context [
                         newline
                         "C-Style no args should be foo(void) and not foo()"
                         newline
-                        http://stackoverflow.com/q/693788/c-void-arguments
+                        "http://stackoverflow.com/q/693788/c-void-arguments"
                     ]
                     panic "C++ no-arg prototype used instead of C style"
                 ]

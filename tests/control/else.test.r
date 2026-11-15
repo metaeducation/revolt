@@ -29,7 +29,7 @@
     true? success
 )
 
-[https://github.com/metaeducation/ren-c/issues/510 (
+[<https://github.com/metaeducation/ren-c/issues/510> (
     c: func [return: [integer!] i] [
         return if i < 15 [30] else [4]
     ]

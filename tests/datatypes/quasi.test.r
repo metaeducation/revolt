@@ -171,7 +171,7 @@
     parse3 [~foo~ ~foo~] [some foo]
 )
 
-[#68 https://github.com/metaeducation/ren-c/issues/876
+[#68 <https://github.com/metaeducation/ren-c/issues/876>
     ~need-non-end~ !! (
         a:
     )

@@ -128,7 +128,7 @@
     (1 = length of deline:lines "Slovenščina")
 ]
 
-[https://github.com/metaeducation/ren-c/issues/923
+[<https://github.com/metaeducation/ren-c/issues/923>
     (
         a: copy #{60}
         count-up 'i 16 [

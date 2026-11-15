@@ -194,7 +194,7 @@ decode-url: sys.util.decode-url/
     if hide [
         panic [
             "ASK:HIDE not yet implemented:"
-            https://github.com/rebol/rebol-issues/issues/476
+            "https://github.com/rebol/rebol-issues/issues/476"
         ]
     ]
 

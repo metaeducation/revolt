@@ -645,7 +645,7 @@ bootstrap: proc [
         ; actually contains a subdirectory called `ren-c-master` which the
         ; source files are in.  We change into that directory.
         ;
-        zipped-url (https://codeload.github.com/metaeducation/ren-c/zip/master)
+        zipped-url (<https://codeload.github.com/metaeducation/ren-c/zip/master>)
     }
 ][
     print ["Downloading and Unzipping Source From:" zipped-url]
@@ -667,7 +667,7 @@ bootstrap: proc [
     ; !!! Temporarily leave CONFIG_TCCDIR as it is...we didn't uninstall TCC.
     ; This particular zip file is outdated, would need a new one.
     ;
-    ; unzip:quiet %./tccencap/ https://metaeducation.s3.amazonaws.com/travis-builds/0.4.40/r3-06ac629-debug-cpp-tcc-encap.zip
+    ; unzip:quiet %./tccencap/ <https://metaeducation.s3.amazonaws.com/travis-builds/0.4.40/r3-06ac629-debug-cpp-tcc-encap.zip>
     ; set-env "CONFIG_TCCDIR" file-to-local compose %(what-dir)/tccencap/
 
     cd ren-c-master

@@ -160,7 +160,7 @@
 ]
 
 
-[https://github.com/red/red/issues/748
+[<https://github.com/red/red/issues/748>
     (
         txt: "Hello world"
         #d = parse txt [opt some further some [remove "l" | one]]

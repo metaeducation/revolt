@@ -32,7 +32,7 @@ Rebol [
         ; want the latest version of the currently running interpreter.
 
         >> latest-of
-        == http://...
+        == <http://...>
 
         ; Invocation with an OS_ID tuple only will get you the latest *debug*
         ; version of for that OS_ID (if it's in the CI builds).  Platform list:
@@ -44,19 +44,19 @@ Rebol [
         ; the test has been reproduced under an instrumented build.
 
         >> latest-of 0.4.40  ; e.g. 64-bit-linux
-        == http://...-debug....
+        == <http://...-debug....>
 
         ; If you use :VARIANT you can ask for another variation, e.g. release
         ; should you have a *really* good reason.  (Please don't!  Help test!)
 
         >> latest-of:variant 0.3.1 'release  ; e.g. 32-bit Windows
-        == http://...
+        == <http://...>
 
         ; If you don't want the "latest" but just the build for a known commit,
         ; you can do this by using its short hash.
 
         >> latest-of:commit 0.4.40 "9d15d31"
-        == http://...r3-9d15d31-...
+        == <http://...r3-9d15d31-...>
     ]--
 
     notes: --[
@@ -122,8 +122,8 @@ warning: --[
 ; However, the folder's name has not been changed.  It should be renamed to
 ; something service-agnostic (like "nightlies" or "ci-builds") at some point.
 ;
-s3root: https://metaeducation.s3.amazonaws.com/travis-builds/  ; sees updates
-cloudroot: https://dd498l1ilnrxu.cloudfront.net/travis-builds/  ; perma-cached
+s3root: <https://metaeducation.s3.amazonaws.com/travis-builds/>  ; sees updates
+cloudroot: <https://dd498l1ilnrxu.cloudfront.net/travis-builds/>  ; perma-cached
 
 is-web-build: system.version.4 = 16
 

@@ -69,11 +69,11 @@
     ~parse-mismatch~ !! (parse "ba" compose [to (charset "a") "ba"])
 ]
 
-[https://github.com/red/red/issues/2515
+[<https://github.com/red/red/issues/2515>
     ("is" = parse "this one is" ["this" to "is" "is"])
 ]
 
-[https://github.com/red/red/issues/2818
+[<https://github.com/red/red/issues/2818>
     (s: ~, #c = parse "abc" [to [s: <here> "bc"] repeat 2 one])
     (s: ~, #c = parse "abc" [to [s: <here> () "bc"] repeat 2 one])
     (s: ~, #c = parse "abc" [to [s: <here> (123) "bc"] repeat 2 one])
@@ -105,7 +105,7 @@
     ~parse-mismatch~ !! (parse #{} [to [#"^/"]])
 ]
 
-[https://github.com/red/red/issues/3427
+[<https://github.com/red/red/issues/3427>
     ("23" = parse:part %234 ["23" ^ to [<end>]] 3)
     ("23" = parse:part %234 ["23" ^ to <end>] 3)
     (

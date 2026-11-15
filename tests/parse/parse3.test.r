@@ -395,7 +395,7 @@
     parse3 "abcd" rule: ["ab" (remove back tail of rule) "cd"]
 )
 
-[https://github.com/metaeducation/ren-c/issues/377 (
+[<https://github.com/metaeducation/ren-c/issues/377> (
     o: make object! [a: 1]
     parse3 s: "a" [o.a: <here>, one]
     o.a = s
@@ -656,7 +656,7 @@
     )
 ]
 
-[https://github.com/metaeducation/ren-c/issues/1032 (
+[<https://github.com/metaeducation/ren-c/issues/1032> (
     s: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     t: "----------------------------------------------------"
     cfor 'n 2 50 1 [
@@ -702,7 +702,7 @@
 )]
 
 [
-    https://github.com/rebol/rebol-issues/issues/2393
+    <https://github.com/rebol/rebol-issues/issues/2393>
 
     ~parse3-incomplete~ !! (
         parse3 "aa" [some [#"a"] reject]
@@ -853,7 +853,7 @@
 ; Parsing URL!s and ANY-SEQUENCE? is read-only
 [(
     name: ~
-    parse3 http://example.com ["http:" some "/" name: across to "." ".com"]
+    parse3 <http://example.com> ["http:" some "/" name: across to "." ".com"]
     name = "example"
 )(
     tags: ~

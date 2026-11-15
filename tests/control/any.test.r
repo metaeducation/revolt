@@ -102,7 +102,7 @@
     a-value = any [a-value]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? any [a-value]
 )
 ('/a = any ['/a])
@@ -201,7 +201,7 @@
     a-value = any [null a-value]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? any [null a-value]
 )
 ('/a = any [null '/a])
@@ -296,7 +296,7 @@
     a-value = any [a-value null]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? any [a-value null]
 )
 ('/a = any ['/a null])

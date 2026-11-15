@@ -3,7 +3,7 @@
 ; Mutating operations are not necessarily high priority for UPARSE (and
 ; were removed from Topaz entirely) but they are being given a shot.
 
-[https://github.com/metaeducation/ren-c/issues/1032 (
+[<https://github.com/metaeducation/ren-c/issues/1032> (
     s: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     t: "----------------------------------------------------"
     cfor 'n 2 50 1 [
@@ -17,7 +17,7 @@
     ok
 )]
 
-[https://github.com/red/red/issues/3357
+[<https://github.com/red/red/issues/3357>
     (all {
         '~<insert>~ = lift parse x3357: [] [insert ('foo)]
         x3357 = [foo]

@@ -8,8 +8,8 @@
     [%../ ~null~] = reduce [dir, reify file]
 )
 (
-    [dir file]: split-path http://rebol.com/index.html
-    [http://rebol.com/ %index.html] = reduce [dir file]
+    [dir file]: split-path <http://rebol.com/index.html>
+    [<http://rebol.com/> %index.html] = reduce [dir file]
 )
 
 
@@ -37,8 +37,8 @@
         %/c/test/test2/                 [%/c/test/test2/ _]
         %//                             [%// _]
         %/c/                            [%/c/ _]
-        http://www.rebol.com/           [http://www.rebol.com/ _]
-        http://                         [http:// _]
+        <http://www.rebol.com/>         [<http://www.rebol.com/> _]
+        <http://>                       [<http://> _]
 
         ; By convention, all directories must end in slash in Revolt, and this
         ; includes the special . and .. directories.  This is the correct form.
@@ -58,9 +58,9 @@
         %foo/..                         [%foo/ %..]
         %foo/.                          [%foo/ %.]
         %foo/../.                       [%foo/../ %.]
-        http://..                       [http:// %..]
-        http://.                        [http:// %.]
-        http://../.                     [http://../ %.]
+        <http://..>                     [<http://> %..]
+        <http://.>                      [<http://> %.]
+        <http://../.>                   [<http://../> %.]
 
         %/c/rebol/tools/test            [%/c/rebol/tools/ %test]
         %/c/test/test2/file.x           [%/c/test/test2/ %file.x]
@@ -74,11 +74,12 @@
         %foo/./bar                      [%foo/./ %bar]
         %/c/foo/../bar                  [%/c/foo/../ %bar]
         %/c/foo/./bar                   [%/c/foo/./ %bar]
-        http://www.rebol.com/index.html [http://www.rebol.com/ %index.html]
-        http://www.rebol.com            [http:// %www.rebol.com]
-        http://../bar                   [http://../ %bar]
-        http://./bar                    [http://./ %bar]
         (at %/vol/dir/file.r 6)         [%dir/ %file.r]
+
+        <http://www.rebol.com/index.html> [<http://www.rebol.com/> %index.html]
+        <http://www.rebol.com>            [<http://> %www.rebol.com]
+        <http://../bar>                   [<http://../> %bar]
+        <http://./bar>                    [<http://./> %bar]
     ]
     for-each [test result] split-path-tests {
         [dir file]: split-path:relax test

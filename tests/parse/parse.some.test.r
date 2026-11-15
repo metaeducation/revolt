@@ -110,7 +110,7 @@
     ~parse-mismatch~ !! (parse "aabb" [some "a" some #c])
 ]
 
-[https://github.com/red/red/issues/3108
+[<https://github.com/red/red/issues/3108>
     (void? parse [1] [some further [to <end>]])
     (void? parse [1] [some further [to [<end>]]])
 ]

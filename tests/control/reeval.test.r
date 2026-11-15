@@ -81,7 +81,7 @@
     1 = reeval a-value
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? reeval a-value
 )
 ~need-non-end~ !! (

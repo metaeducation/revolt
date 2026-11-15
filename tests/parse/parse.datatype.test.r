@@ -93,7 +93,7 @@
 ; how transformations of this should be taking place in the language (the
 ; logic in the browsers is fuzzy.)
 ;
-[https://github.com/red/red/issues/4682
+[<https://github.com/red/red/issues/4682>
 
     (
         bin: #{68747470733A2F2F6578616D706C652E6F726722}
@@ -109,7 +109,7 @@
     ])
 ]
 
-[https://github.com/red/red/issues/4678
+[<https://github.com/red/red/issues/4678>
     (_ = parse as blob! " " [_])
 
     ~parse-mismatch~ !! (parse as blob! "#(" [_])
@@ -123,7 +123,7 @@
     ((the '[]) = parse [''' ''() '[]] [repeat 3 quoted!])
 ]
 
-[https://github.com/red/red/issues/4863
+[<https://github.com/red/red/issues/4863>
     ('word = parse as blob! "word" [word!])
     ('word = parse as blob! "   word" [word!])
 

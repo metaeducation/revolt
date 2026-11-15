@@ -46,7 +46,7 @@
     (12 = parse #{0A0B0C} [one opt #{0B} one])
 ]
 
-[https://gitter.im/red/bugs?at=638e27b34cb5585f9666500d (
+[<https://gitter.im/red/bugs?at=638e27b34cb5585f9666500d> (
     x: ~
     failure? parse [1] [optional (x: 'true)]
     x = 'true

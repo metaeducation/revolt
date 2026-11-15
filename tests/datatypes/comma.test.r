@@ -59,8 +59,8 @@
 
 ; Blanks are "hard delimiters", so they won't be picked up in URL!
 (
-    commafied: [a, 1, <b>, #c, %def, http://example.com, "test",]
-    normal: [a 1 <b> #c %def http://example.com "test"]
+    commafied: [a, 1, <b>, #c, %def, <http://example.com>, "test",]
+    normal: [a 1 <b> #c %def <http://example.com> "test"]
 
     remove-each 'x commafied [blank? x]
     commafied = normal

@@ -69,7 +69,7 @@
 (if 0x0 [okay])
 (if first [()] [okay])
 (if 'a/b [okay])
-(if make port! http:// [okay])
+(if make port! <http://> [okay])
 (if '/a [okay])
 (if first [a.b:] [okay])
 (if first [a:] [okay])
@@ -77,7 +77,7 @@
 (if to tag! "" [okay])
 (if 0:00 [okay])
 (if 0.0.0 [okay])
-(if  http:// [okay])
+(if <http://> [okay])
 (if 'a [okay])
 
 ; recursive behaviour

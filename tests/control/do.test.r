@@ -173,7 +173,7 @@
     a-value = eval [a-value]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? eval reduce [a-value]
 )
 ('/a = eval ['/a])

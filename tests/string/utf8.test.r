@@ -92,7 +92,7 @@
 )
 
 ; AS aliasing of TEXT! as BLOB! constrains binary modifications to UTF-8
-https://github.com/metaeducation/ren-c/issues/817
+<https://github.com/metaeducation/ren-c/issues/817>
 [
     (t: "օʊʀֆօռǟɢɢօռ"
     b: as blob! t
@@ -115,7 +115,7 @@ https://github.com/metaeducation/ren-c/issues/817
 ]
 
 ; AS aliasing of BLOB! as TEXT! can only be done on mutable binaries
-https://github.com/metaeducation/ren-c/issues/817
+<https://github.com/metaeducation/ren-c/issues/817>
 [
     ~overlong-utf8~ !! (
         b: #{64C990E1B49A64C9905A64C4B15A}

@@ -144,7 +144,7 @@
     a-value = f
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     f: does [a-value]
     port? f
 )
@@ -438,7 +438,7 @@
     1 = a-value:local 1
 )
 
-[#539 https://github.com/metaeducation/ren-c/issues/755 (
+[#539 <https://github.com/metaeducation/ren-c/issues/755> (
     f: func [return: [trash!]] [
         use [x] [return]
         42

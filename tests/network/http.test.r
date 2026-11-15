@@ -10,9 +10,9 @@
     ; !!! Note that returning a WORD! from a function ending in ? is not seen
     ; as a good practice, and will likely change.
     ;
-    ('file = exists? http://www.rebol.com/index.html)
-    (null = exists? http://example.com/fhqwhgads.mp3)
+    ('file = exists? <http://www.rebol.com/index.html>)
+    (null = exists? <http://example.com/fhqwhgads.mp3>)
 ]
 
-(blob? read http://example.com)
-(blob? read https://example.com)
+(blob? read <http://example.com>)
+(blob? read <https://example.com>)

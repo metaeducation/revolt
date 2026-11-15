@@ -42,8 +42,8 @@
 
 (
     let id: 2114
-    let url: compose https://(reverse of 'info.rebol.forum)/t/(id)
-    url = https://forum.rebol.info/t/2114
+    let url: compose <https://(reverse of 'info.rebol.forum)/t/(id)>
+    url = <https://forum.rebol.info/t/2114>
 )
 
 ; !!! Errors once bubbled out, but currently they are not doing so--probably

@@ -268,8 +268,8 @@ help-value: proc [
 
         let string: to text! topic
         if "!" = last string [
-            browse join url! [
-                http://www.rebol.com/r3/docs/datatypes/ (string) ".html"
+            browse join tag! [
+                "http://www.rebol.com/r3/docs/datatypes/" (string) ".html"
             ]
             return
         ]
@@ -293,8 +293,8 @@ help-value: proc [
             replace item a b
         ]
 
-        browse join url! [
-            https://github.com/gchiu/reboldocs/blob/master/ (item) ".MD"
+        browse join tag! [
+            "https://github.com/gchiu/reboldocs/blob/master/" (item) ".MD"
         ]
         return
     ]
@@ -327,7 +327,7 @@ help-value: proc [
         ]
 
         rune! [  ; look up hashtag on web
-            browse join https://r3n.github.io/topics/ as text! topic
+            browse join <https://r3n.github.io/topics/> topic
             print newline
         ]
 
@@ -503,7 +503,7 @@ source: proc [
 bugs: proc [
     "View bug database."
 ][
-    browse https://github.com/metaeducation/ren-c/issues
+    browse <https://github.com/metaeducation/revolt/issues>
 ]
 
 

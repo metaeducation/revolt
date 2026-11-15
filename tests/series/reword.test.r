@@ -26,7 +26,7 @@
 )
 
 [
-    https://github.com/metaeducation/ren-c/issues/1005
+    <https://github.com/metaeducation/ren-c/issues/1005>
     ("ò" = reword "ò$a" reduce ['a ""])
 ]
 

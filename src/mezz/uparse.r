@@ -920,7 +920,7 @@ default-combinators: make map! [
     ][
         panic [
             "Transitionally (maybe permanently?) the COPY function in UPARSE"
-            "is done with ACROSS:" https://forum.rebol.info/t/1595
+            "is done with ACROSS:" "https://forum.rebol.info/t/1595"
         ]
     ]
 
@@ -1273,7 +1273,7 @@ default-combinators: make map! [
         panic [
             "The SET keyword in UPARSE is done with SET-WORD!, and /SET will"
             "work if you just want to call the SET function directly."
-            https://forum.rebol.info/t/1139
+            "https://forum.rebol.info/t/1139"
         ]
     ]
 

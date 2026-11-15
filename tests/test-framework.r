@@ -144,13 +144,13 @@ run-test-cluster: proc [
     ;
     parse cluster [while not <end> [
         ;
-        ; !!! Skip any RUNE! or URL!, as this style has been used:
+        ; !!! Skip any RUNE! or TAG!, as this style has been used:
         ;
-        ;     [#123 http://example.com (
+        ;     [#123 <http://example.com> (
         ;        2 = 1 + 1
         ;     )]
         ;
-        opt some [url! | rune!]
+        opt some [tag! | rune!]
 
         let expected-id: try [
             /unquasi quasiform!

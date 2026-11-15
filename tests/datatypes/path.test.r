@@ -83,7 +83,7 @@
     'a = a-value.1
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     null? a-value.data
 )
 (

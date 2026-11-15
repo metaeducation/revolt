@@ -140,7 +140,7 @@ ok)
     ]
 )
 (
-    https://github.com/metaeducation/ren-c/issues/1005
+    <https://github.com/metaeducation/ren-c/issues/1005>
     ("ò" = uparse-reword "ò$a" reduce ['a ""])
 )
     ;#2333

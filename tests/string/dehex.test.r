@@ -54,7 +54,7 @@
 (#{61CEB263} = as blob! dehex "a%CE%B2c")
 
 [
-    https://github.com/metaeducation/ren-c/issues/1003
+    <https://github.com/metaeducation/ren-c/issues/1003>
     ("%C2%80" = enhex to-text #{C280})
 ]
 

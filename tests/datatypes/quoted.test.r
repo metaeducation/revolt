@@ -226,7 +226,7 @@
         (make object! [obj: "ect"])
         (make frame! append/)
         (make error! "error")
-        (port: open http://example.com)
+        (port: open <http://example.com>)
         ~quasiword~
         10
         10.20

@@ -120,7 +120,7 @@
 ;((just (x A x B (x A x B))) = replace:case:deep lit (a A b B (a A b B)) ['a | 'b] 'x)
 
 [
-    https://github.com/metaeducation/rebol-issues/issues/1499
+    <https://github.com/metaeducation/rebol-issues/issues/1499>
 
     ("ac" = replace:one "abc" "bc" "c")
     (#{6163} = replace:one #{616263} #{6263} #{63})

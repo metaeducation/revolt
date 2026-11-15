@@ -101,10 +101,10 @@ locale: construct [
     language*: null
     library: construct [
         ;
-        ; This is a list mapping tags to URLs as [<tag> http://example.com]
+        ; This is a list mapping tags to URLs as [<tag> <http://example.com>]
         ; They make it easy to do things like `import @json` or `do @chess`
         ;
-        utilities: https://raw.githubusercontent.com/r3n/renclib/master/userutils.r
+        utilities: <https://raw.githubusercontent.com/r3n/renclib/master/userutils.r>
     ]
     locale:
     locale*: null

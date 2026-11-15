@@ -13,7 +13,7 @@
 
 (heavy-void? parse "" [repeat (#) some further [to <end>]])
 
-[https://github.com/red/red/issues/3927
+[<https://github.com/red/red/issues/3927>
     ~parse-incomplete~ !! (parse "bx" [some further [not ahead "b" | one]])
 ]
 

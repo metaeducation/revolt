@@ -130,7 +130,7 @@
 )
 
 [
-    https://github.com/metaeducation/ren-c/issues/633
+    <https://github.com/metaeducation/ren-c/issues/633>
 
     ~const-value~ !! (
         foo: ~

@@ -359,8 +359,8 @@
 (not lax-equal? #a #A)
 ; tag! case
 (lax-equal? <a a="a"> <A A="A">)
-; url! case
-(lax-equal? http://a.com httP://A.coM)
+; url-like tag! case
+(lax-equal? <http://a.com> <httP://A.coM>)
 ; email! case
 (lax-equal? a@a.com A@A.Com)
 (lax-equal? 'a 'a)
@@ -441,13 +441,13 @@
     a-value: construct @[
         a: 1 b: 1.0 c: $1 d: 1%
         e: [a 'a :a a: /a #"a" #{00}]
-        f: ["a" #a http://a a@a.com <a>]
+        f: ["a" #a <http://a> a@a.com <a>]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     b-value: construct @[
         a: 1 b: 1.0 c: $1 d: 1%
         e: [a 'a :a a: /a #"a" #{00}]
-        f: ["a" #a http://a a@a.com <a>]
+        f: ["a" #a <http://a> a@a.com <a>]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     lax-equal? a-value b-value
@@ -455,13 +455,13 @@
     a-value: construct @[
         a: 1 b: 1.0 c: $1 d: 1%
         e: [a 'a :a a: /a #"a" #{00}]
-        f: ["a" #a http://a a@a.com <a>]
+        f: ["a" #a <http://a> a@a.com <a>]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     b-value: construct @[
         a: 1 b: 1.0 c: $1 d: 1%
         e: [a 'a :a a: /a #"a" #{00}]
-        f: ["a" #a http://a a@a.com <a>]
+        f: ["a" #a <http://a> a@a.com <a>]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     test: lax-equal?/
@@ -475,13 +475,13 @@
     a-value: construct @[
         a: 1 b: 1.0 c: $1 d: 1%
         e: [a 'a :a a: /a #"a" #{00}]
-        f: ["a" #a http://a a@a.com <a>]
+        f: ["a" #a <http://a> a@a.com <a>]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     b-value: construct compose2 $(<*>) @[
         a: 1.0 b: $1 c: 100% d: 0.01
         e: [/a a 'a :a a: #"A" (<*> next #{0000})]
-        f: [#a <A> http://A a@A.com "A"]
+        f: [#a <A> <http://A> a@A.com "A"]
         g: a/b/(c: 'd/e/f)/(b.d: [:f.g h/i])
     ]
     test: lax-equal?/
@@ -546,10 +546,10 @@
 (lax-equal? (rescue [1 / 0]) != space space != (rescue [1 / 0]))
 ; port! reflexivity
 ; Error in R2 (could be fixed).
-(lax-equal? p: make port! http:// p)
+(lax-equal? p: make port! <http://> p)
 ; No structural equivalence for port!
 ; Error in R2 (could be fixed).
-(not lax-equal? make port! http:// make port! http://)
+(not lax-equal? make port! <http://> make port! <http://>)
 
 ;[#859
 ;    ~stack-overflow~ !! (

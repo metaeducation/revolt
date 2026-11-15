@@ -704,7 +704,7 @@ sys.util/make-scheme [
                 )
                 host: port.spec.host  ; can be tuple, e.g. 127.0.0.1
                 port-id: port.spec.port-id
-                ref: join tcp:// [@host ":" port-id]
+                ref: join <tcp://> [@host ":" port-id]
             ]
             conn.locals: port
             open conn

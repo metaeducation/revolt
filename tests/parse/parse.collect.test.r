@@ -373,7 +373,7 @@
 ]
 
 ; KEEP without blocks
-https://github.com/metaeducation/ren-c/issues/935
+<https://github.com/metaeducation/ren-c/issues/935>
 [
     (all [
         let x
@@ -438,14 +438,14 @@ https://github.com/metaeducation/ren-c/issues/935
     )
 ]
 
-[https://github.com/red/red/issues/567
+[<https://github.com/red/red/issues/567>
     (
         value: ~
         ["12"] = parse "12" [collect [keep value: across repeat 2 one]]
     )
 ]
 
-[https://github.com/red/red/issues/569
+[<https://github.com/red/red/issues/569>
     (
         size: 1
         value: ~
@@ -468,12 +468,12 @@ https://github.com/metaeducation/ren-c/issues/935
 ;
 ; But in Revolt, <end> is invisible.  So KEEP panics with no argument.
 ;
-[https://github.com/red/red/issues/2561
+[<https://github.com/red/red/issues/2561>
     ~???~ !! (parse "" [collect [keep to <end>]])
     ([""] = parse "" [collect [keep across to <end>]])
 ]
 
-[https://github.com/red/red/issues/3108
+[<https://github.com/red/red/issues/3108>
     (
         partition3108: func [elems [block!] size [integer!]] [
             return parse elems [
@@ -498,7 +498,7 @@ https://github.com/metaeducation/ren-c/issues/935
     )
 ]
 
-[https://github.com/red/red/issues/4198
+[<https://github.com/red/red/issues/4198>
     ;
     ; !!! It's not clear whether Red's KEEP PICK is supposed to splice or not.
     ; Apparently not if a block comes from a group (?!)  UPARSE is much more
@@ -531,7 +531,7 @@ https://github.com/metaeducation/ren-c/issues/935
 ]
 
 
-https://github.com/metaeducation/ren-c/issues/939
+<https://github.com/metaeducation/ren-c/issues/939>
 (
     thing: ~
     foo: ~

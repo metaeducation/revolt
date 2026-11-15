@@ -1,7 +1,11 @@
 ; datatypes/url.r
-(url? http://www.fm.tul.cz/~ladislav/rebol)
-(not url? 1)
-(url! = type of http://www.fm.tul.cz/~ladislav/rebol)
+;
+; TAG! has taken over the textual form of URL while URL! is now structured
+; like an object.
+
+(tag? <http://www.fm.tul.cz/~ladislav/rebol>)
+(not tag? 1)
+(tag! = type of <http://www.fm.tul.cz/~ladislav/rebol>)
 
 ~bad-make-arg~ !! (make url! "http://example.com")
 ~scan-invalid~ !! (to url! "")
@@ -17,8 +21,8 @@
     url2: transcode:one "http://a.b.c/d?e=f&"
     all [
         not equal? url1 url2
-        url1 = http://a.b.c/d?e=f%26
-        url2 = http://a.b.c/d?e=f&
+        url1 = <http://a.b.c/d?e=f%26>
+        url2 = <http://a.b.c/d?e=f&>
     ]
 )
 
@@ -26,7 +30,7 @@
 ; https://github.com/metaeducation/ren-c/issues/1046
 ;
 (
-    b: transcode:one "[http://example.com/abc{def}]"
+    b: transcode:one "[<http://example.com/abc{def}>]"
     all [
         (length of b) = 1
         (as text! first b) = "http://example.com/abc{def}"
@@ -34,7 +38,7 @@
 )
 
 [#2380 (
-    url: decode-url http://example.com/get?q=ščř#kovtička
+    url: decode-url <http://example.com/get?q=ščř#kovtička>
     all [
         url.scheme = 'http  ; Note: DECODE-URL returns BLOCK! with 'http
         url.user = null
@@ -45,7 +49,7 @@
         url.tag = "kovtička"
     ]
 )(
-    url: decode-url http://švéd:břéťa@example.com:8080/get?q=ščř#kovtička
+    url: decode-url <http://švéd:břéťa@example.com:8080/get?q=ščř#kovtička>
     all [
         url.scheme = 'http
         url.user = "švéd"
@@ -56,7 +60,7 @@
         url.tag = "kovtička"
     ]
 )(
-    url: decode-url http://host?query
+    url: decode-url <http://host?query>
     all [
         url.scheme = 'http
         url.user = null
@@ -76,7 +80,7 @@
 ;     digit, though, which syntactically distinguishes all
 ;     domain names from the IP addresses."
 [(
-    url: decode-url http://10.20.30.40:8000/this/is/an/ip?address
+    url: decode-url <http://10.20.30.40:8000/this/is/an/ip?address>
     all [
         url.scheme = 'http
         url.user = null
@@ -88,7 +92,7 @@
         url.tag = null
     ]
 )(
-    url: decode-url http://10.20.30.40a:8000/this/is/a?hostname
+    url: decode-url <http://10.20.30.40a:8000/this/is/a?hostname>
     all [
         url.scheme = 'http
         url.user = null
@@ -108,6 +112,6 @@
 ;
 (url? foo::bar)
 
-(8 = length of http://a)
-(8 = size of http://a)
-(11 = size of http://😺)
+(8 = length of <http://a>)
+(8 = size of <http://a>)
+(11 = size of <http://😺>)

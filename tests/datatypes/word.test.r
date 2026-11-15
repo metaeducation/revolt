@@ -112,7 +112,7 @@
     ^a-value = a-value
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? a-value
 )
 (

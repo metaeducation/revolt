@@ -23,7 +23,7 @@
         -[foo]-
         #{CAFE}
         space
-        http://somewhere
+        <http://somewhere>
         1900-01-30
     ][
         assert [value = do-script-returning value]

@@ -64,7 +64,7 @@
     ]
 )]
 
-[https://github.com/red/red/issues/4318
+[<https://github.com/red/red/issues/4318>
     (
         x4318: 0
         error? sys.util/recover [

@@ -85,7 +85,7 @@
 ]
 
 [
-    https://github.com/metaeducation/ren-c/issues/1085
+    <https://github.com/metaeducation/ren-c/issues/1085>
     (#a30bc = join #a spread reduce [10 + 20 "b" #c])
 ]
 

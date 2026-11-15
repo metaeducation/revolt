@@ -51,8 +51,8 @@
 ; Semicolons are technically legal in URL (though many things that auto-scan
 ; code to find URLs in text won't include period, semicolon, quotes...)
 (
-    url: transcode:one "http://abc;"
-    http://abc; = url
+    url: transcode:one "<http://abc;>"
+    <http://abc;> = url
 )
 
 (

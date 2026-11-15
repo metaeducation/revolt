@@ -45,7 +45,7 @@ path-source: %../src/core/
 file-source: %u-zlib.c
 
 
-path-zlib: https://raw.githubusercontent.com/madler/zlib/master/
+path-zlib: <https://raw.githubusercontent.com/madler/zlib/master/>
 
 
 ;

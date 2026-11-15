@@ -111,7 +111,7 @@
     a-value = all [a-value]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? all [a-value]
 )
 ('/a = all ['/a])
@@ -206,7 +206,7 @@
     a-value = all [okay a-value]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     port? all [okay a-value]
 )
 ('/a = all [okay '/a])
@@ -301,7 +301,7 @@
     okay = all [a-value okay]
 )
 (
-    a-value: make port! http://
+    a-value: make port! <http://>
     okay = all [a-value okay]
 )
 (okay = all ['/a okay])

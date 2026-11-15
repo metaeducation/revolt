@@ -404,14 +404,14 @@ export console!: make object! [
 
         list-shortcuts: [print [system.console.shortcuts]]
         changes: [
-            let gitroot: https://github.com/metaeducation/ren-c/blob/master/
+            let gitroot: <https://github.com/metaeducation/ren-c/blob/master/>
             browse join gitroot [
                 %CHANGES.md "#"
                 system.version.1 "." system.version.2 "." system.version.3
             ]
         ]
         topics: [
-            browse https://r3n.github.io/topics/
+            browse <https://r3n.github.io/topics/>
         ]
     ]
 
@@ -963,7 +963,7 @@ export why: proc [
 
     if error? err [
         err: lowercase unspaced [err.type "-" err.id]
-        let docroot: http://www.rebol.com/r3/docs/errors/
+        let docroot: <http://www.rebol.com/r3/docs/errors/>
         browse join docroot [err ".html"]
     ] else [
         print "No information is available."
