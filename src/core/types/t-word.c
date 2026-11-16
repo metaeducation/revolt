@@ -112,7 +112,7 @@ IMPLEMENT_GENERIC(MAKE, Is_Word)
     attempt {
         Unsingleheart_Sequence(arg) except (Error* e) {
             UNUSED(e);
-            break;
+            goto cant_make_word;  // `break` would only exit the `except` [1]
         }
 
         if (Any_Sequence(arg))
@@ -125,6 +125,13 @@ IMPLEMENT_GENERIC(MAKE, Is_Word)
         Tweak_Cell_Type_Matching_Heart(arg, heart);
         return COPY_TO_OUT(arg);
     }
+
+  // 1. `except` expands to a hidden `for` loop (it's how the error variable
+  //    gets scoped).  So a `break` in its body leaves that loop, not the
+  //    enclosing `attempt`.  That used to fall through to the `again`, and
+  //    (make word! 'a/b) would spin forever.
+
+  cant_make_word:
 
     return_fail (
         "Can't MAKE ANY-WORD? from sequence unless it wraps one WORD!"

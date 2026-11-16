@@ -263,3 +263,15 @@
         %% = 1020
     )
 ]
+
+; MAKE WORD! from a sequence only works if the sequence wraps a single word.
+; (make word! 'a/b) used to hang forever: a C `break` meant to leave a retry
+; loop only left the error handler nested inside of it.
+[
+    ('a = make word! '/a)
+    ('a = make word! 'a:)
+    ('a = make word! '/a:)
+
+    (error? rescue [make word! 'a/b])
+    (error? rescue [make word! 'a.b.c])
+]
