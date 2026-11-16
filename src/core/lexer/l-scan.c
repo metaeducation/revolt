@@ -862,8 +862,21 @@ Result(const Byte*) Scan_Utf8_Item_Into_Mold(
             Push_Level(scan);
 
             bool threw = Trampoline_With_Top_As_Root_Throws();
+
+            Option(Error*) failure = SUCCESS;  // e.g. "#a{" has no `}` [2]
+            if (not threw and Is_Failure(Level_Out(scan)))
+                failure = Cell_Error(Level_Out(scan));
+
             Drop_Data_Stack_To(scan->baseline.stack_base);  // !!! new mode?
             Drop_Level(scan);
+
+          // 2. A scan that doesn't find its closing delimiter doesn't throw,
+          //    it puts a FAILURE! in the output cell.  That has to be checked
+          //    for, as otherwise `transcode.at` isn't where the list ended,
+          //    and the copy loop below runs off the end of the input.
+
+            if (failure)
+                return_fail (unwrap failure);
 
             if (threw) {
                 DECLARE_STABLE (label);
