@@ -1016,17 +1016,21 @@ IMPLEMENT_GENERIC(RANDOM, Is_Rune)
   // RUNE! doesn't allow you to create unicode codepoints with surrogate
   // values or other illegal states, including 0.  All bad states should give
   // back an error.
+  //
+  // 1. This was an `attempt {...}` using `again` in the `except`.  But the
+  //    `except` is itself a hidden `for` loop, so the `continue` inside of
+  //    `again` only left the handler.  That worked solely because nothing
+  //    came after the `except` in the attempt's body: see the `break` that
+  //    hung (make word! 'a/b) in %t-word.c for when it doesn't.
 
-    attempt {
-        Codepoint c = cast(Codepoint,
-            1 + (Random_Int(ARG(SECURE)) % limit)
-        );
+    Codepoint c = cast(Codepoint,
+        1 + (Random_Int(ARG(SECURE)) % limit)
+    );
 
-        Init_Single_Codepoint_Rune(OUT, c) except (Error* e) {
-            dont(Free_Unmanaged_Flex(Varlist_Array(e)));  // errors prealloc'd
-            UNUSED(e);
-            again;
-        }
+    Init_Single_Codepoint_Rune(OUT, c) except (Error* e) {
+        dont(Free_Unmanaged_Flex(Varlist_Array(e)));  // errors prealloc'd
+        UNUSED(e);
+        goto keep_generating_until_valid_char_found;  // not `again` [1]
     }
 
     return BOUNCE_OUT;
