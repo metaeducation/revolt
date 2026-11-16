@@ -38,9 +38,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "assert-fix.h"
-
-#define NEEDFUL_ASSERT  assert
+#include "assert-fix.h"  // also points NEEDFUL_ASSERT() at assert_raw()
 
 #if TO_WINDOWS
     #undef _WIN32_WINNT  // https://forum.rebol.info/t/326/4

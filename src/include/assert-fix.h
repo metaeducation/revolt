@@ -32,6 +32,33 @@
 //
 //   http://stackoverflow.com/a/17241278
 //
+// * NO STRINGS IN assert().  The C idiom for "always fail, with a message"
+//   is `assert(!"message")`.  If you forget the `!`, or put it inside the
+//   quotes, the assert silently always passes...since a string literal is a
+//   non-null pointer.  So there are three macros:
+//
+//       assert(expr)        // refuses anything convertible to `const char*`
+//       assert_msg("text")  // always fails; argument *must* be a C string
+//       assert_raw(expr)    // no checking of the argument's type
+//
+//   The refusal is a compile-time check done by Needful's known_not(), so it
+//   only has teeth in C++ builds with the Needful enhancements.  In C builds
+//   the macros still exist, and assert_msg() can't be gotten wrong.
+//
+//   The checks expand to Needful macros *at the point of use*, so %needful.h
+//   has to be included before the first assert() or assert_msg() in a file.
+//   It does not have to be included before this header.
+//
+//   One consequence: assert(p) for a `char*` or `const char*` variable `p`
+//   is refused too, as it can't be told from a string.  Say what you mean
+//   with assert(p != nullptr).
+//
+// * Needful's own internal assertions go through NEEDFUL_ASSERT(), which is
+//   pointed at assert_raw() here (unless you defined it yourself).  They need
+//   the raw form: some are in generic code where the asserted thing may
+//   legitimately be a `const char*`, and some appear in %needful.h before
+//   known_not() has been defined.
+//
 
 #if !defined(NDEBUG) && !defined(USE_STANDARD_ASSERT_H)
 
@@ -73,8 +100,18 @@
         debug_break();  // calling debug_break() allows us to step afterward
     }
 
-    #define assert(expr) \
+    #define assert_raw(expr) \
         ((expr) ? (void)0 : Assertion_Failure(__FILE__, __LINE__, #expr))
+
+    #define assert(expr) \
+        (needful_rigid_known_not(const char*, (expr)) \
+            ? (void)0 \
+            : Assertion_Failure(__FILE__, __LINE__, #expr))
+
+    #define assert_msg(msg) \
+        Assertion_Failure( \
+            __FILE__, __LINE__, needful_rigid_known(const char*, (msg)) \
+        )
 #else
     #include <assert.h>
 
@@ -103,4 +140,18 @@
           })
       #endif
   #endif
+
+  // The standard assert() can't be wrapped to check its argument's type (a
+  // macro can't be redefined in terms of its old self).  So on this path
+  // assert() takes anything, as it always has.  assert_msg() still insists
+  // on a C string, and supplies the `!` so that nobody has to remember it.
+  //
+    #define assert_raw(expr)  assert(expr)
+
+    #define assert_msg(msg) \
+        assert_raw(! needful_rigid_known(const char*, (msg)))
+#endif
+
+#if !defined(NEEDFUL_ASSERT)  // Needful's internals need the raw form
+    #define NEEDFUL_ASSERT(expr)  assert_raw(expr)
 #endif

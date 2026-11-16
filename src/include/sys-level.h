@@ -218,7 +218,7 @@ INLINE ParamList* Level_Varlist(Level* L) {
 INLINE Option(const Symbol*) Level_Label(Level* L) {
     assert(Is_Action_Level(L));
   #if DEBUG_LEVEL_LABELS
-    assert(L->label_utf8);  // should be non-nullptr if label valid
+    assert(L->label_utf8 != nullptr);  // should be set if label valid
   #endif
     return L->u.action.label;
 }
@@ -333,7 +333,7 @@ INLINE Option(const Symbol*) Try_Get_Action_Level_Label(Level* L) {
     assert(L->executor != &Intrinsic_Executor);  // no intrinsics [1]
     assert(Is_Action_Level(L));
   #if DEBUG_LEVEL_LABELS
-    assert(L->label_utf8);
+    assert(L->label_utf8 != nullptr);
   #endif
     return L->u.action.label;
 }

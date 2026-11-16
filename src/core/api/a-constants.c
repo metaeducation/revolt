@@ -43,8 +43,7 @@
 
 #include <stdlib.h> // size_t and other types used in rebol.h
 
-#include "assert-fix.h"
-#define NEEDFUL_ASSERT  assert
+#include "assert-fix.h"  // also points NEEDFUL_ASSERT() at assert_raw()
 #define NEEDFUL_DEFINE_ALL_SHORTHANDS  1
 #include "needful.h"
 #include "c-extras.h"  // for EXTERN_C, nullptr, etc.

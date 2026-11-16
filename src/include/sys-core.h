@@ -75,9 +75,7 @@
 // This needs to be done before any assert() macros get expanded, otherwise
 // those expansions wouldn't get the tweaked assert.
 //
-#include "assert-fix.h"
-
-#define NEEDFUL_ASSERT  assert
+#include "assert-fix.h"  // also points NEEDFUL_ASSERT() at assert_raw()
 
 
 //=//// INCLUDE EXTERNAL API /////////////////////////////////////////////=//

@@ -120,7 +120,7 @@ struct JumpStruct {
     }
     ~JumpStruct() {
         if (not clean_exit)
-            assert("Missing CLEANUP_BEFORE_EXITING_RECOVER_SCOPE() call");
+            assert_msg("Missing CLEANUP_BEFORE_EXITING_RECOVER_SCOPE() call");
     }
   #endif
 };
