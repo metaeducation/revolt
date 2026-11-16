@@ -69,6 +69,7 @@
     ){
         printf("Assertion failure: %s\n", expr);
         printf("Line %d, File: %s\n", line, file);
+        fflush(stdout);  // if stdout is a pipe or file, text is lost w/o this
         debug_break();  // calling debug_break() allows us to step afterward
     }
 
