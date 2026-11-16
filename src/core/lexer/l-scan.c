@@ -1350,10 +1350,19 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
 
     const Byte* cp = S->begin;
 
-    if (*cp == '&') {
-        S->end = cp + 1;
+    if (*cp == '&') {  // construction syntax is `&[...]`, needs the `[` [1]
+        if (cp[1] != '[') {
+            S->end = cp + 1;
+            return_fail (Error_Syntax(S, TOKEN_CONSTRUCT));
+        }
+        S->end = cp + 2;  // consume `[`: block-mode subscan runs to its `]`
         return TOKEN_CONSTRUCT;
     }
+
+  // 1. The scan of what comes after the `&` is done in block mode, so it
+  //    ends when it sees a `]`.  If the `[` isn't required (and consumed)
+  //    here, then "&]" has a `]` closing a block that was never opened...
+  //    and "&[a]" would be seen as missing its close.
 
     if (*cp == '-') {  // first priority: -[...]- --[...]--
         Count dashes = 1;
