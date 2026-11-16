@@ -2638,6 +2638,12 @@ static Bounce Scanner_Executor_Core(Level* const L) {
 } case TOKEN_WORD: { /////////////////////////////////////////////////////////
 
     assert(len != 0);
+
+    for (const Byte* bp = S->begin; bp != S->end; ++bp) {  // "a&", "!^" [1]
+        if (*bp == '$' or *bp == '@' or *bp == '^' or *bp == '&')
+            return_fail (Error_Syntax(S, token));
+    }
+
     trap (
       const Symbol* symbol = Intern_Symbol(S->begin, len)
     );

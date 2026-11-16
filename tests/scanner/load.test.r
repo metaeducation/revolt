@@ -110,3 +110,27 @@
     [1 2 3] = load %test-checksum.r
     elide delete %test-checksum.r
 )
+
+; These inputs used to crash the scanner outright instead of giving an error.
+; (Found by feeding random short byte sequences to TRANSCODE.)
+[
+    (error? rescue [transcode "a&"])  ; sigil character inside a WORD!
+    (error? rescue [transcode #{215E}])  ; "!^" (same, BLOB! avoids escaping)
+
+    (error? rescue [transcode "~$"])  ; quasi and sigil pending at end
+    (error? rescue [transcode "[~$]"])
+    ('~$~ = first transcode "~$~")  ; ...but the closed form is fine
+
+    (error? rescue [transcode "$%a"])  ; sigil on a non-sigilable type
+
+    (error? rescue [transcode "#a{"])  ; unclosed list inside a RUNE!
+    (error? rescue [transcode "#a["])
+    (error? rescue [transcode "#a("])
+    (error? rescue [transcode "%a(b"])  ; ...or a FILE!
+    (3 = length of transcode "#a{b} #c[d e] %f(g)/h")
+
+    (error? rescue [transcode "&]"])  ; construction syntax needs &[...]
+    (error? rescue [transcode "&a]"])
+    (error? rescue [transcode "&[a]"])  ; (no behavior yet, but must not crash)
+    (error? rescue [transcode "x &[a] y"])
+]
