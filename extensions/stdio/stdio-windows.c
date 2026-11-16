@@ -61,16 +61,29 @@ enum Piped_Type {
 // https://stackoverflow.com/a/21070042
 //
 // There is a more promising-seeming "GetFileInformationByHandleEx()" but a
-// superficial attempt at using it did not work.  So until it becomes a
-// priority, we use a heuristic that if something gives an unreasonable number
-// of 0 byte reads in a row it is treated as an EOF.
+// superficial attempt at using it did not work.  So there's also a heuristic
+// that if something gives an unreasonable number of 0 byte reads in a row it
+// is treated as an EOF.
+//
+// 1. NUL is a character device, just like a console is...so GetFileType()
+//    can't tell them apart.  But GetConsoleMode() only succeeds on a handle
+//    that is actually a console.  Without this check, redirecting both stdin
+//    and stdout to NUL (as a `< /dev/null > /dev/null` from an MSYS2 or Git
+//    Bash shell does) looked like "nothing is redirected".  So the smart
+//    terminal would start up on handles that weren't a console at all, and
+//    the first PRINT would abort the process.
+//
+//    (Other character devices--serial ports, printers--land here as well.
+//    They aren't consoles either, so plain ReadFile()/WriteFile() is right.)
 //
 enum Piped_Type Detect_Handle_Piping(HANDLE h)
 {
     if (GetFileType(h) != FILE_TYPE_CHAR)
         return Piped_To_File;
 
-    // !!! See note, can't detect Piped_To_NUL at present.
+    DWORD mode;
+    if (not GetConsoleMode(h, &mode))  // character device, but not console
+        return Piped_To_NUL;  // [1]
 
     return Not_Piped;
 }
