@@ -368,10 +368,16 @@ typedef enum {
     _stmt_ needful_postfix_extract_result; \
     Needful_Assert_Not_Failing()
 
+/* The `for` only scopes the declaration, and runs once.  But being a loop,
+** `break` or `continue` in the handler exit *it*, and not any loop of yours
+** enclosing it: use `goto` or `return`.  /result#catch-is-a-loop
+*/
 #define needful_catch_if_failed(_decl_) \
-    /* _stmt_ */ needful_postfix_extract_result; /* v-- see docs RE:_once */ \
-    for (_decl_ = Needful_Get_Failure(), *_once = NEEDFUL_NULLPTR; \
-            !_once; ++_once) \
+    /* _stmt_ */ needful_postfix_extract_result; /* v-- see docs RE:_once_ */ \
+    for (_decl_ = Needful_Get_Failure(), \
+            *_needful_slot_ = NEEDFUL_NULLPTR, \
+            **_needful_once_ = NEEDFUL_NULLPTR; \
+            !_needful_once_; _needful_once_ = &_needful_slot_) \
       if (Needful_Test_And_Clear_Failure()) /* allow else clause to attach */
         /* {body} implicitly picked up after macro by for, decl is scoped */
 
@@ -434,12 +440,22 @@ typedef enum {
 
     template<class To, class From>
     struct NocastConvert<To, From, /*IntToPtr*/ true> {
-        static To Do_Conversion(From) { return static_cast<To>(nullptr); }
+        static To Do_Conversion(From f) {  /* C keeps f's value: only 0 ok */
+            NEEDFUL_ASSERT(f == 0);
+            static_cast<void>(f);
+            return static_cast<To>(nullptr);
+        }
     };
 
     template<class To, class From>  /* pointer-to-pointer via C-style */
     struct NocastConvert<To*, From*, /*IntToPtr*/ false> {
-        static To* Do_Conversion(From* f) { return (To*)(f); }
+        static To* Do_Conversion(From* f) {
+            static_assert(
+                std::is_const<To>::value || !std::is_const<From>::value,
+                "nocast won't cast away const (C warns, too): use m_cast()"
+            );
+            return (To*)(f);
+        }
     };
 
   #if defined(_MSC_VER)  /* aggregate, so no ctor: /setup#c4623 */
@@ -861,16 +877,18 @@ NEEDFUL_NORETURN static inline void needful_dead_end_inline(void) {
 
 /****[[ STATIC_ASSERT, STATIC_IGNORE, STATIC_FAIL ]]**************************
 **
-** STATIC_ASSERT uses _Static_assert in C11 and enhanced C++; it is a no-op in
-** earlier C. STATIC_FAIL still fails earlier C builds, without a message.
+** STATIC_ASSERT is _Static_assert in C11 and static_assert in C++; it is a
+** no-op in earlier C. STATIC_FAIL still fails earlier C, without a message.
 ** ASSERT_LVALUE rejects temporaries; DECLTYPE checks support comment macros.
 */
 
 #define NEEDFUL_STATIC_IGNORE(expr) /* https://stackoverflow.com/q/53923706 */ \
     struct NEEDFUL_UNIQUE_NAME(needful_noop_)  /* caller supplies semicolon */
 
-#if !defined(__cplusplus) \
-    && defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#if defined(__cplusplus)  /* else a false one passes w/o NEEDFUL_CPP_ENHANCED */
+    #define NEEDFUL_STATIC_ASSERT(...) /* variadic: commas in templates */ \
+        static_assert((__VA_ARGS__), #__VA_ARGS__)
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
     #define NEEDFUL_STATIC_ASSERT(cond) \
         _Static_assert((cond), #cond)
 #else
