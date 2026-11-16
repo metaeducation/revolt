@@ -243,14 +243,14 @@ Result(Value*) Get_Chain_Push_Refinements(
     else
         panic (Error_Bad_Value(head));  // what else could it have been?
 
-    ++head;
-
     if (Is_Action(out))
         NOOP;  // it's good
     else if (Is_Possibly_Unstable_Value_Frame(out))
         Activate_Frame(out);
     else
         panic ("Head of CHAIN! did not evaluate to an ACTION!");
+
+    ++head;
 
     // We push the remainder of the chain in *reverse order* as words to act
     // as refinements to the function.  The action execution machinery will

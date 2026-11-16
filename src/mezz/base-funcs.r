@@ -143,15 +143,15 @@ bind construct [
 
 what-dir: nonfinal impure lambda [  ; can be HIJACK'd by a "smarter" version
     "Returns the current directory path"
-    []: [<null> file! url!]
+    []: [<null> file! tag!]
 ][
     system.options.current-path
 ]
 
 change-dir: nonfinal impure func [  ; can be HIJACK'd by a "smarter" version
     "Changes the current path (where scripts with relative paths will be run)"
-    return: [file! url!]
-    path [file! url!]
+    return: [file! tag!]
+    path [file! tag!]
 ][
     return system.options.current-path: path
 ]
@@ -337,7 +337,7 @@ vacant?: redescribe [
             ; https://github.com/metaeducation/ren-c/issues/587
             ;
             panic [
-                "ENSURE failed with argument of type"
+                "ENSURE of" (mold reify f.test) "failed with argument of type"
                     (mold reify try type of f.value) else ["VOID"]
             ]
         ]

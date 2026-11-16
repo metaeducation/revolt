@@ -188,7 +188,7 @@ runs:
       run: |
         "$R3_EXECUTABLE" --do "$(cat <<'REBOL'
         print "== Hello From R3 HTTP Read Test! =="
-        header: parse as text! read http://example.com [
+        header: parse as text! read <http://example.com> [
             thru '<title> accept across to '</title>  ; changed from <h1>, 2026
         ]
         assert [header = "Example Domain"]

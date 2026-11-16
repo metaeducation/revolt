@@ -283,7 +283,7 @@ import: infix lib3/func [
 === "LOAD WRAPPING" ===
 
 ; see header notes: `exports` broken
-load: adapt lib3.load/ [  ; source [file! url! text! blob! block!]
+load: adapt lib3.load/ [  ; source [file! tag! url! text! blob! block!]
     if all [  ; ALL THEN does not seem to work in bootstrap EXE
         file? source
         not dir? source

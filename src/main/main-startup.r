@@ -607,10 +607,10 @@ main-startup: nonfinal function [  ; overwrites self when finished
         ; Also on Windows, things like `C:` represent drive letters, so the
         ; heuristic is to check for more than one letter.
         ;
-        let alphanum: charset [#"A" - #"Z" #"a" - #"z" #"0" #"9"]
+        let alphanum: charset [#"A" - #"Z" #"a" - #"z" #"0" - #"9"]
         o.script: parse3 o.script [
-            some alphanum ":"  ; SOME, e.g. more than one letter
-            accept (to url! o.script)
+            alphanum some alphanum ":"  ; more than one letter
+            accept (to tag! o.script)  ; TAG! interpreted as URL!
         ] except [
             local-to-file o.script
         ]
@@ -720,7 +720,7 @@ main-startup: nonfinal function [  ; overwrites self when finished
     ;
     ;     r3 --do "eval %script1.r" --do "eval %script2.r"
     ;
-    if match [file! url!] cond o.script [
+    if match [file! tag!] cond o.script [
         emit [
             (do:args (<*> o.script) (<*> script-args)) except (e -> [
                 quit e.exit-code

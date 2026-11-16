@@ -700,7 +700,7 @@ IMPLEMENT_GENERIC(TO, Any_Utf8)
         return BOUNCE_OUT;
     }
 
-    if (to == HEART_EMAIL or to == HEART_URL) {
+    if (to == HEART_EMAIL) {
         Length len;
         Size size;
         Utf8(const*) utf8 = Cell_Utf8_Len_Size_At(&len, &size, v);
@@ -717,15 +717,8 @@ IMPLEMENT_GENERIC(TO, Any_Utf8)
             return BOUNCE_OUT;
         }
 
-        if (
-            cast(const Byte*, utf8) + size
-            != Try_Scan_URL_To_Stack(utf8, size)
-        ){
-            return_fail (Error_Scan_Invalid_Raw(ARG(TYPE), v));
-        }
-        Move_Cell(OUT, TOP_ELEMENT);
-        DROP();
-        return BOUNCE_OUT;
+        assert(false);
+        return_fail ("This used to Try_Scan_URL_To_Stack");
     }
 
     if (
@@ -882,7 +875,7 @@ Result(Element*) Alias_Any_Utf8_As(
         return out;
     }
 
-    if (as == HEART_EMAIL or as == HEART_URL) {
+    if (as == HEART_EMAIL) {
         if (Stringlike_Has_Stub(v)) {
             const Strand *s = Cell_Strand(v);
             if (not Is_Flex_Frozen(s)) {  // always force frozen

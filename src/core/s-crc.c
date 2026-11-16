@@ -182,7 +182,6 @@ uint32_t Hash_Cell(const Cell* cell)
       case HEART_TEXT:
       case HEART_FILE:
       case HEART_EMAIL:
-      case HEART_URL:
       case HEART_TAG:
       case HEART_RUNE: {
         REBLEN len;
@@ -274,9 +273,10 @@ uint32_t Hash_Cell(const Cell* cell)
         break;
 
       hash_object:
+      case HEART_OBJECT:
+      case HEART_URL:
       case HEART_ERROR:
       case HEART_PORT:
-      case HEART_OBJECT:
         //
         // !!! ANY-CONTEXT has a uniquely identifying context pointer for that
         // context.  However, this does not help with "natural =" comparison

@@ -118,7 +118,6 @@ void Assert_Cell_Marked_Correctly(const Cell* v)
         break;
 
       case HEART_EMAIL:
-      case HEART_URL:
       case HEART_RUNE: {
         if (Stringlike_Has_Stub(v)) {
             const Flex* f = Cell_Strand(v);
@@ -257,6 +256,7 @@ void Assert_Cell_Marked_Correctly(const Cell* v)
 
       mark_object:
       case HEART_OBJECT:
+      case HEART_URL:
       case HEART_ERROR:
       case HEART_PORT: {
         Base* base = CELL_CONTEXT_VARLIST(v);

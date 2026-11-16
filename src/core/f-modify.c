@@ -298,7 +298,6 @@ static void Join_Binary_In_Byte_Buf(
           case TYPE_TEXT:
           case TYPE_FILE:
           case TYPE_EMAIL:
-          case TYPE_URL:
           case TYPE_TAG: {
             Size utf8_size;
             Utf8(const*) utf8 = Cell_Utf8_Size_At(&utf8_size, val);

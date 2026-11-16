@@ -1245,7 +1245,7 @@ encap: func [
     spec "Single script to embed, directory to zip with main.r, or dialect"
         [file! block!]
     :rebol "Path to a Rebol to encap instead of using the current one"
-        [file! url!]
+        [file! tag! url!]
 ][
     let in-rebol-path: any [rebol, system.options.boot]
     let base-name-tail: skip tail of in-rebol-path -4

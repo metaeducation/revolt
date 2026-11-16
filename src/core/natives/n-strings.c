@@ -673,16 +673,6 @@ DECLARE_NATIVE(JOIN)
         Move_Cell(OUT, TOP_ELEMENT);
         DROP();
     }
-    else if (heart == HEART_URL) {
-        if (
-            cast(const Byte*, utf8) + size
-            != Try_Scan_URL_To_Stack(utf8, size)
-        ){
-            return_fail ("Invalid URL!");
-        }
-        Move_Cell(OUT, TOP_ELEMENT);
-        DROP();
-    }
     else
         panic (PARAM(BASE));
 
@@ -744,7 +734,6 @@ DECLARE_NATIVE(JOIN)
           case TYPE_TEXT:
           case TYPE_FILE:
           case TYPE_EMAIL:
-          case TYPE_URL:
           case TYPE_TAG: {
             Size utf8_size;
             Utf8(const*) utf8 = Cell_Utf8_Size_At(&utf8_size, at);

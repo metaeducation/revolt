@@ -42,11 +42,12 @@ call*: adapt call-internal*/ [
                 switch:type arg [
                     text! [arg]  ; pass through as is
                     file! [file-to-local arg]
-                    url! [as text! arg]
+                    tag! [as text! arg]  ; typically used for URL!
                     word! [as text! arg]
                     path! [to text! arg]
                     tuple! [to text! arg]
                     integer! [to text! arg]
+                    url! [panic "URL! object conversion to text not yet done"]
 
                     panic ["invalid item in argv[] block for CALL:" arg]
                 ]

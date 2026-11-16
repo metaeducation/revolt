@@ -1899,13 +1899,13 @@ Bounce Stepper_Executor(Level* L)
   case TYPE_TEXT:
   case TYPE_FILE:
   case TYPE_EMAIL:
-  case TYPE_URL:
   case TYPE_TAG:
   case TYPE_RUNE:
   case TYPE_BITSET:
   case TYPE_MAP:
   case TYPE_VARARGS:
   case TYPE_OBJECT:
+  case TYPE_URL:
   case TYPE_MODULE:
   case TYPE_ERROR:
   case TYPE_PORT:

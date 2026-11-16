@@ -209,9 +209,6 @@ INLINE Element* Init_Utf8_Non_String(
 #define Init_Email(out,utf8,size,len) \
     Init_Utf8_Non_String((out), HEART_EMAIL, (utf8), (size), (len))
 
-#define Init_Url(out,utf8,size,len) \
-    Init_Utf8_Non_String((out), HEART_URL, (utf8), (size), (len))
-
 #define Init_Rune(out,utf8,size,len) \
     Init_Utf8_Non_String((out), HEART_RUNE, (utf8), (size), (len))
 

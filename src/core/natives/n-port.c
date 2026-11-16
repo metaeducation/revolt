@@ -31,7 +31,7 @@
 //  "Send port a create request"
 //
 //      return: [port!]
-//      port [port! file! url! block!]
+//      port [port! file! tag! url! block!]
 //  ]
 //
 DECLARE_NATIVE(CREATE)
@@ -49,7 +49,7 @@ DECLARE_NATIVE(CREATE)
 //  "Send port a delete request"
 //
 //      return: [port!]
-//      port [port! file! url! block!]
+//      port [port! file! tag! url! block!]
 //  ]
 //
 DECLARE_NATIVE(DELETE)
@@ -67,7 +67,7 @@ DECLARE_NATIVE(DELETE)
 //  "Opens a port; makes a new port from a specification if necessary"
 //
 //      return: [port!]
-//      spec [port! file! url! block!]
+//      spec [port! file! tag! url! block!]
 //      :new "Create new file - if it exists, reset it (truncate)"
 //      :read "Open for read access"
 //      :write "Open for write access"
@@ -115,7 +115,7 @@ DECLARE_NATIVE(CLOSE)
 //          tuple! "READ:DNS returned tuple!"
 //          ~[~halt~]~ "!!! If READ is Ctrl-C'd in nonhaltable API calls"
 //      ]
-//      source [port! file! url! block!]
+//      source [port! file! tag! url! block! rune!]
 //      :part "Partial read a given number of units (source relative)"
 //          [any-number?]
 //      :seek "Read from a specific position (source relative)"
@@ -139,7 +139,7 @@ DECLARE_NATIVE(READ)
 //  "Writes to a file, URL, or port - auto-converts text strings"
 //
 //      return: [port! block! ~[#stdout]~]  ; !!! http write returns BLOCK (?)
-//      destination [port! file! url! block! ~[#stdout]~]
+//      destination [port! file! tag! url! block! rune! ~[#stdout]~]
 //      data "Data to write (non-binary converts to UTF-8)"
 //          [blob! text! block! object! rune!]
 //      :part "Partial write a given number of units"
@@ -190,7 +190,7 @@ DECLARE_NATIVE(WRITE)
 //  "Returns information about a port, file, or URL"
 //
 //      return: [<null> object!]
-//      target [port! file! url! block!]
+//      target [port! file! tag! url! block!]
 //  ]
 //
 DECLARE_NATIVE(QUERY)
@@ -231,9 +231,9 @@ DECLARE_NATIVE(MODIFY)
 //
 //  "Rename a file"
 //
-//      return: [port! file! url!]
-//      from [port! file! url! block!]
-//      to [port! file! url! block!]
+//      return: [port! file! tag!  url!]
+//      from [port! file! tag! url! block!]
+//      to [port! file! tag! url! block!]
 //  ]
 //
 DECLARE_NATIVE(RENAME)

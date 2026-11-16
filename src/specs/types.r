@@ -141,10 +141,6 @@ blob!       "series of bytes"
 
 </ANY-STRING?>
 
-url!        "uniform resource locator or identifier"
-            (:payload1)  ; may or may not embed data in url vs. use node
-            [any-utf8? any-inert?]
-
 email!      "email address"
             (:payload1)  ; may or may not embed data in email vs. use node
             [any-utf8? any-inert?]
@@ -181,6 +177,10 @@ parameter!  "function parameter description"
 <ANY-CONTEXT?>
 
     object!     "context of names with values"
+                (payload1 payload2)
+                [any-inert?]
+
+    url!        "uniform resource locator or identifier"
                 (payload1 payload2)
                 [any-inert?]
 

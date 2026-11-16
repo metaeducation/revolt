@@ -48,7 +48,7 @@ Rebol [
         failure! "Missing `Rebol [...]` at start of data"
     ]
     data [blob!]
-    :file [file! url!]
+    :file [file! tag! url!]
 
     {line (1) key hdr rest}
 ][
@@ -108,7 +108,7 @@ Rebol [
     source "Source code (text! will be UTF-8 encoded)"
         [blob! text!]
     :file "Where source is being loaded from"
-        [file! url!]
+        [file! tag! url!]
     :only "Only process header, don't decompress body"
     :required "Script header is required"
 
@@ -245,16 +245,16 @@ bind construct [
         <null>
     ]
     source "Source of the information being loaded"
-        [file! url! tag! @word! text! blob!]
+        [file! tag! url! rune! text! blob!]
     :type "E.g. rebol, text, markup, jpeg... (by default, auto-detected)"
         [word!]
 
     {header file line data}
 ][
-    if match [file! url! tag! @word!] source [
+    if match [file! tag! url! rune!] source [
         source: clean-path source
 
-        file: ensure [file! url!] source
+        file: ensure [file! tag! url!] source
         type: default [file-type? source else ['rebol]]  ; !!! rebol default?
 
         data: read source  ; not always binary [1]
@@ -321,8 +321,8 @@ bind construct [
 ; this routine as well.
 
 /adjust-url-for-raw: func [
-    return: [<null> url!]
-    url [url!]
+    return: [<null> tag!]
+    url [tag!]
 ][
     let text: to text! url  ; URL! is immutable, must copy to mutate in parse
 
@@ -345,7 +345,7 @@ bind construct [
         thru "/"  ; repository name
         change "blob/" ("")  ; GitHub puts the "raw" in the subdomain name
 
-        (return compose https://raw.githubusercontent.com/(start))
+        (return compose <https://raw.githubusercontent.com/(start)>)
     ]
 
     ; Adjust a Github Gist URL to https://gist.github.com/.../raw/
@@ -362,7 +362,7 @@ bind construct [
         ]
         insert ("/raw/")
 
-        (return compose https://gist.githubusercontent.com/(start))
+        (return compose <https://gist.githubusercontent.com/(start)>)
     ]
 
     return null
@@ -407,7 +407,7 @@ bind construct [
     source [
         file! url!  ; get from location, run with location as working dir
         tag!  ; load relative to system.script.path
-        @word!  ; look up as a shorthand in registry
+        rune!  ; look up as a shorthand in registry
         blob!  ; UTF-8 source, needs to be checked for invalid byte patterns
         text!  ; source internally stored as validated UTF-8, *may* scan faster
         word!  ; not entirely clear on what WORD! does.  :-/
@@ -453,7 +453,7 @@ bind construct [
 
     ; If URL is decorated source (syntax highlighting, etc.) get raw form.
     ;
-    (adjust-url-for-raw cond match url! source) then (adjusted -> [
+    (adjust-url-for-raw cond match tag! source) then (adjusted -> [
         source: adjusted  ; !!! https://forum.rebol.info/t/1582/6
     ])
 
@@ -492,7 +492,7 @@ bind construct [
     ; so extract the net path where we're executing to save in system.script.
 
     let dir: null
-    match [file! url! @word! tag!] source then [
+    match [file! tag! url! rune!] source then [
         source: clean-path source
         dir: as text! source
         let [before file]: find-last dir slash
@@ -514,7 +514,7 @@ bind construct [
     ; !!! Noticing changes would be extremely helpful by not forcing you to
     ; quit and restart to see module changes.  This suggests storing a hash.
 
-    let file: match [file! url!] source  ; for file and line info during scan
+    let file: match [file! tag!] source  ; for file and line info during scan
 
     let data: match [blob! text!] source else [read source]
 
@@ -556,7 +556,7 @@ bind construct [
         args: '(args)  ; variable same name as field, trips up binding
     ]
 
-    if match [file! url!] source [  ; system.script? [1]
+    if match [file! tag!] source [  ; system.script? [1]
         apply cond :script-pre-load-hook [is-module, opt hdr]
     ]
 

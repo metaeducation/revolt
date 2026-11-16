@@ -184,8 +184,8 @@ lib.exit-process: ~<See SYS.UTIL/EXIT>~
 ; * Isolating the executed code into a MODULE! so that it doesn't leak into
 ;   the caller's context.
 ;
-; * Turning @xxx identified script names to DO into a URL by looking it up in
-;   the modules library.  So `do @chess` and `import @json` use the same logic
+; * Turning #xxx identified script names to DO into a URL by looking it up in
+;   the modules library.  So `do #chess` and `import #json` use the same logic
 ;   to figure out where that name points.
 ;
 ; * Setting system.script to reflect the executing script during its run, and
@@ -208,12 +208,12 @@ lib.exit-process: ~<See SYS.UTIL/EXIT>~
     return: [any-value?]
     source "Files interpreted based on extension, dialects based on 'kind'"
         [
-            text!  ; source code with header
-            blob!  ; treated as UTF-8, same interpretation as text
-            url!  ; load code from URL via protocol
-            file!  ; load from file relative to OS current directory
-            tag!  ; load relative to system.script.name
-            @word!  ; module name (URL! looked up from table)
+            text!  "source code with header"
+            blob!  "treated as UTF-8, same interpretation as text"
+            url!   "load code from location via protocol"
+            file!  "load from file relative to OS current directory"
+            tag!   "load URL, or file relative to system.script.name"
+            rune!  "module name (URL! looked up from table)"
         ]
     :args "Args passed as system.script.args to a script (normally a string)"
         [element?]

@@ -707,7 +707,7 @@ return assign_git_commit_promiser(os_id)  // sets git_commit
     // Note: this sets `system.options.path`, so that functions like DO can
     // locate relative FILE!s, e.g. `do %script.r` knows where to look.
     //
-    reb.Elide("change-dir as url!", reb.T(base_url))
+    reb.Elide("change-dir as tag!", reb.T(base_url))
 
     // There is currently no method to dynamically load extensions with
     // r3.js, so the only extensions you can load are those that are picked

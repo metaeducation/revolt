@@ -46,7 +46,7 @@ read-deep-seq: func [
 export read-deep: func [
     "Return files and folders using recursive read strategy"
 
-    root [file! url! block!]
+    root [file! tag! url! block!]
     :full "Include root path, retains full paths vs. returning relative paths"
     :strategy "TAKEs next item from queue, building the queue as necessary"
         [frame!]

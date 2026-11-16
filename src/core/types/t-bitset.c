@@ -171,7 +171,6 @@ REBINT Find_Max_Bit(const Stable* val)
     case TYPE_TEXT:
     case TYPE_FILE:
     case TYPE_EMAIL:
-    case TYPE_URL:
     case TYPE_RUNE:
     case TYPE_TAG: {
         REBLEN len;
@@ -391,7 +390,6 @@ bool Set_Bits(Binary* bset, const Element* val, bool set)
         case TYPE_TEXT:
         case TYPE_FILE:
         case TYPE_EMAIL:
-        case TYPE_URL:
         case TYPE_TAG:
             Set_Bits(bset, item, set);
             break;
@@ -530,7 +528,6 @@ bool Check_Bits(const Binary* bset, const Stable* val, bool uncased)
         case TYPE_TEXT:
         case TYPE_FILE:
         case TYPE_EMAIL:
-        case TYPE_URL:
         case TYPE_TAG:
 //      case TYPE_RUNE:
             if (Check_Bits(bset, item, uncased))

@@ -320,7 +320,7 @@ data-descriptor-sig: #{504B0708}
     where "Where to decompress it"
         [file! block!]
     source "Archive to decompress (only STORE and DEFLATE supported)"
-        [file! url! blob!]
+        [file! tag! url! blob!]
     :verbose "Lists files while decompressing (default)"
     :quiet "Don't lists files while decompressing"
 ][
@@ -330,7 +330,7 @@ data-descriptor-sig: #{504B0708}
         where: my dirize
         if not exists? where [make-dir:deep where]
     ]
-    if match [file! url!] source [
+    if match [file! tag! url!] source [
         source: read source
     ]
 

@@ -14,15 +14,15 @@ Rebol [
 decode-url: sys.util.decode-url/
 
 
-; 1. TAG! is a shorthand for getting files relative to the path of the
-;    currently running script.
+; 1. TAG! can be either a URL, or if not URL-like is treated as a shorthand for
+;    getting files relative to the path of the currently running script.
 ;
 ;    !!! This has strange interactions if you have a function that gets called
 ;    back after a script has finished, and it still wants to fetch resources
 ;    relative to its original location.  These issues are parallel to that of
 ;    using the current working directory, so one should be cautious.
 ;
-; 2. @WORD! like `@tool` gets translated into a URL!.  The list is itself
+; 2. RUNE! like `#tool` gets translated into a URL!.  The list is itself
 ;    loaded from the internet, URL is in `system.locale.library.utilities`.
 ;
 ;    !!! As the project matures, this would have to come from a curated list,
@@ -32,12 +32,15 @@ decode-url: sys.util.decode-url/
 /clean-path: func [
     "Returns new directory path with `.` and `..` processed"
 
-    return: [file! url! text!]
-    path [file! url! text! tag! @word!]
+    return: [file! tag! text!]
+    path [file! tag! text! rune!]
     :only "Do not prepend current directory"
     :dir "Add a trailing / if missing"
 ][
-    if tag? path [  ; path relative to currently running script [1]
+    all [
+        tag? path
+        not try to url! path  ; can panic if URL-like, but not a valid URL
+    ] then [  ; treat as path relative to currently running script [1]
         if #"/" = first path [
             panic ["TAG! import from SYSTEM.SCRIPT.PATH not relative:" path]
         ]
@@ -48,8 +51,8 @@ decode-url: sys.util.decode-url/
         ]
     ]
 
-    if match [@word!] path [  ; lookup @tool on the internet [2]
-        path: switch as tag! unpin path (  ; !!! list used tags, should change
+    if rune? path [  ; lookup #tool on the internet [2]
+        path: switch path (  ; !!! list used tags, should change
             load system.locale.library.utilities
         ) else [
             panic ["Module" path "not in system.locale.library.utilities"]
@@ -60,7 +63,7 @@ decode-url: sys.util.decode-url/
 
     let target
     case [
-        url? path [
+        tag? path [
             scheme: decode-url path
             target: either scheme.path [
                 to file! scheme.path
@@ -78,7 +81,7 @@ decode-url: sys.util.decode-url/
         ]
 
         file? path [
-            if url? let current: what-dir [
+            if tag? let current: what-dir [
                 scheme: decode-url current
                 current: any [
                     scheme.path
@@ -140,7 +143,7 @@ decode-url: sys.util.decode-url/
         return path
     ]
 
-    return to url! head of insert path unspaced [
+    return to tag! head of insert path unspaced [
         form scheme.scheme "://"
         if scheme.user [
             unspaced [

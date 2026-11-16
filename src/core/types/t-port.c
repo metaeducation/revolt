@@ -306,10 +306,13 @@ IMPLEMENT_GENERIC(TO, Url)
 {
     INCLUDE_PARAMS_OF_TO;
 
-    USED(ARG(TYPE));  // deferred to string via LEVEL
-    USED(ARG(VALUE));
+    Element* v = Element_ARG(VALUE);  // URL! object-like type
+    Heart to = Datatype_Builtin_Heart(ARG(TYPE));  // only support tag for now
 
-    return GENERIC_CFUNC(TO, Any_String)(LEVEL);
+    if (to != HEART_TAG)
+        panic ("URL! can only be converted to TAG for now");
+
+    return rebDelegate("ensure", CANON(TAG_X), CANON(PICK), v, "'ref");
 }
 
 

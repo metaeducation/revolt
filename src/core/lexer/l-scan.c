@@ -1992,8 +1992,8 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
               case ')':
               case '}': {
                 if (base == TOP_INDEX) {  // closing the code
-                    S->end = cp;
-                    return TOKEN_URL;
+                    assert(false);
+                    return_fail ("This returned TOKEN_URL");
                 }
 
                 Byte want = unwrap First_Byte_Of_Rune_If_Single_Codepoint(
@@ -2024,8 +2024,8 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
             return_fail (Error_Mismatch(want, *cp));
         }
 
-        S->end = cp;
-        return TOKEN_URL;
+        assert(false);
+        return_fail ("This used to return TOKEN_URL");
     }
     if (Has_Lex_Flag(flags, LEX_SPECIAL_AT)) {
         token = TOKEN_EMAIL;
@@ -2731,12 +2731,6 @@ static Bounce Scanner_Executor_Core(Level* const L) {
       const Byte* ep = Scan_Email_To_Stack(S->begin, len)
     );
     if (S->end != ep)
-        return_fail (Error_Syntax(S, token));
-    goto lookahead;
-
-} case TOKEN_URL: { //////////////////////////////////////////////////////////
-
-    if (S->end != Try_Scan_URL_To_Stack(S->begin, len))
         return_fail (Error_Syntax(S, token));
     goto lookahead;
 

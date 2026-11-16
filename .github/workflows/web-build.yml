@@ -376,7 +376,7 @@ jobs:
         timeout: 15
         screenshot: chess
         script: |
-          animate-game: do @chess
+          animate-game: do #chess
           assert [
               comment [https://en.wikipedia.org/wiki/Fool%27s_mate]
               <done> = animate-game [
@@ -399,13 +399,14 @@ jobs:
         checked: true
         script: |
           cd %tests/cypress/e2e/
-          list: parse as text! read %README.md [
+          list: parse as text! read %README.md [  ; not TAG!, just plain URLs
               collect some [
-                  keep ["*" space url! elide newline]
+                  keep ["*" space between <here> newline]
                   | thru newline
               ]
           ]
           for-each 'url list [
+              url: as tag! url
               let [_ filename]: split-path url
               write filename (read url)
           ]

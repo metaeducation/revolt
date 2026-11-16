@@ -1309,7 +1309,7 @@ IMPLEMENT_GENERIC(SHUFFLE, Any_List)
 //
 //  "Get the file (or URL) that a value was loaded from, if possible"
 //
-//      return: [file! url! failure!]
+//      return: [file! tag! url! failure!]
 //      value "Typically only ANY-LIST? know their file"
 //          [element?]
 //  ]

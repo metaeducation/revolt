@@ -596,34 +596,6 @@ void Mold_Text_Flex_At(Molder* mo, const Strand* s, Index index) {
 }
 
 
-// R3-Alpha's philosophy on URL! was:
-//
-// "Only alphanumerics [0-9a-zA-Z], the special characters $-_.+!*'(),
-//  and reserved characters used for their reserved purposes may be used
-//  unencoded within a URL."
-//
-// http://www.blooberry.com/indexdot/html/topics/urlencoding.htm
-//
-// Revolt is working with a different model, where URL! is generic to custom
-// schemes which may or may not follow the RFC for Internet URLs.  It also
-// wishes to preserve round-trip copy-and-paste from URL bars in browsers
-// to source and back.  Encoding concerns are handled elsewhere.
-//
-IMPLEMENT_GENERIC(MOLDIFY, Is_Url)
-{
-    INCLUDE_PARAMS_OF_MOLDIFY;
-
-    Element* v = Element_ARG(VALUE);
-    Molder* mo = Cell_Handle_Pointer(Molder, ARG(MOLDER));
-    bool form = ARG(FORM);
-
-    UNUSED(form);
-    Append_Any_Utf8(mo->strand, v);
-
-    return TRASH_OUT;
-}
-
-
 IMPLEMENT_GENERIC(MOLDIFY, Is_Email)
 {
     INCLUDE_PARAMS_OF_MOLDIFY;
@@ -940,7 +912,7 @@ IMPLEMENT_GENERIC(OLDGENERIC, Any_String)
       default:
         // Let the port system try the action, e.g. OPEN %foo.txt
         //
-        if ((Is_File(v) or Is_Url(v))) {
+        if ((Is_File(v) or Is_Tag(v))) {
             Api(const Stable*) made = rebStable("make port! @", ARG_N(1));
             assert(Is_Port(made));
             Copy_Cell(ARG_N(1), made);

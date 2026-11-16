@@ -90,7 +90,7 @@ Result(Element*) Transcode_One(
 //      :next "Translate one element and give back next position"
 //      :one "Transcode one element and return it"
 //      :file "File to be associated with BLOCK!s and GROUP!s in source"
-//          [file! url!]
+//          [file! tag!]
 //      :line "Line number for start of scan, word variable will be updated"
 //          [integer! any-word?]
 //      {buffer}

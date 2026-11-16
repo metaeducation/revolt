@@ -21,7 +21,7 @@ mkdir: make-dir/
 cd: lambda [
     "CHANGE-DIR convenience (literal argument), returns directory after change"
 
-    []: [file! url!]
+    []: [file! tag!]
     '@path [
         <hole> "CD with no argument just returns current directory"
         text! "Local filesystem convention (backslashes on Windows)"

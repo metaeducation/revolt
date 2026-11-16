@@ -23,7 +23,7 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
     "SYS: Called by system on MAKE of PORT! port from a scheme."
 
     return: [port!]
-    spec [file! url! block! object! word! port!]
+    spec [url! file! tag! block! rune! object! word! port!]
         "port specification"
 ][
     ; The first job is to identify the scheme specified:
@@ -37,8 +37,12 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
                 ref: spec
             ]
         ]
-        url! [
+        tag! [
             spec: decode-url spec
+            name: spec.scheme
+        ]
+        url! [
+            ; spec is already a URL
             name: spec.scheme
         ]
         block! [
@@ -76,6 +80,9 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
         port! [
             name: port.scheme.name
             spec: port.spec
+        ]
+        rune! [
+            panic "MAKE-PORT* doesn't currently support RUNE! (should it?)"
         ]
 
         panic
@@ -147,7 +154,7 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
             "@"
             |
             emit user: (null)
-            emit pass: (~<no-user>~)  ; is this better than NULL?
+            emit pass: (null)
         ]
 
         ; optional host [:port]
@@ -184,7 +191,7 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
 
         emit tag: try ["#", across to <end>]  ; optional bookmark ("tag")
 
-        emit ref: /as (url!) <input>  ; alway save original URL for reference
+        emit ref: /as (tag!) <input>  ; alway save original URL for reference
     ]
 
     ; !!! Historically DECODE-URL returned a BLOCK!, but an object seems
@@ -198,10 +205,10 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
     ;
     decode-url: lambda [  ; this function is bound in sys.util/*parse-url
         "Decode a URL according to rules of sys.util/*parse-url"
-        []: [object!]
-        url [url! text!]
+        []: [url!]
+        url [tag! text!]
     ][
-        parse url [gather rules] except [
+        as url! parse url [gather rules] except [
             panic ["Could not decode URL to an object:" url]
         ]
     ]

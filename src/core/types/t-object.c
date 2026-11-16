@@ -600,6 +600,36 @@ IMPLEMENT_GENERIC(MAKE, Is_Object)
 }
 
 
+IMPLEMENT_GENERIC(AS, Any_Context)
+{
+    INCLUDE_PARAMS_OF_AS;
+
+    Element* v = Element_ARG(VALUE);
+    Heart as = Datatype_Builtin_Heart(ARG(TYPE));
+    Option(Type) from = Type_Of(v);
+
+    if (
+        (from == TYPE_OBJECT or from == TYPE_URL)
+        and (as == HEART_OBJECT or as == HEART_URL)
+    ){
+        // we can alias it
+    }
+    else
+        return_fail ("Can only AS alias OBJECT! <=> URL!");
+
+    Heart from_heart = Heart_Of_Builtin_Fundamental(v);  // URL! or OBJECT!
+    VarList* varlist = Cell_Varlist(v);
+
+    if (as != from_heart) {
+        varlist = Copy_Varlist_Shallow_Managed(varlist);
+        Tweak_Cell_Type_Matching_Heart(Rootvar_Of_Varlist(varlist), as);
+    }
+
+    Copy_Cell(OUT, Rootvar_Of_Varlist(varlist));
+    return BOUNCE_OUT;
+}
+
+
 //
 //  /adjunct-of: native [
 //

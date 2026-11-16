@@ -46,7 +46,7 @@ Rebol [
 
     ; !!! what RETURN values make sense?
     where "Where to save (suffix determines encoding)"
-        [<opt> file! url! blob! text!]
+        [<opt> file! tag! url! blob! text!]
     value "Value(s) to save"
         [<const> element?]
     :header "Provide REBOL header block/object, or INCLUDED if in value"
@@ -58,7 +58,7 @@ Rebol [
     ; Special datatypes use codecs directly (e.g. PNG image file):
     all [
         not header  ; User wants to save value as script, not data file
-        match [file! url!] where
+        match [file! tag! url!] where
         let type: file-type? where
         type <> 'rebol  ; handled by this routine, not by WRITE+ENCODE
 

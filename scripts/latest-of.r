@@ -26,7 +26,7 @@ Rebol [
         ; you're getting an ACTION! back from DO, which does not *always*
         ; return an ACTION!...)
 
-        >> /latest-of: do @latest-of
+        >> /latest-of: do #latest-of
 
         ; An invocation with no arguments (or a void argument) will assume you
         ; want the latest version of the currently running interpreter.
@@ -130,7 +130,7 @@ is-web-build: system.version.4 = 16
 latest-of: func [
     "INTERNAL USE ONLY!  Link to unstable S3 CI build of the interpreter"
 
-    return: [url!]
+    return: [tag!]
 
     os "https://github.com/metaeducation/ren-c/blob/master/tools/platforms.r"
         [<hole> <opt> tuple!]
@@ -252,7 +252,7 @@ latest-of: func [
     ;    (Invalidating cloudfront caches is possible, but they charge for it.)
 
     if not commit [  ; [1]
-        let last-deploy: join url! [
+        let last-deploy: join tag! [
             s3root @os %/last-deploy.short-hash  ; S3, not cloudfront [2]
         ]
         commit: as text! read last-deploy
@@ -270,7 +270,7 @@ latest-of: func [
     let filename: to file! unspaced [
         "r3-" commit (opt suffix) (opt extension)
     ]
-    let url: to url! unspaced [
+    let url: to tag! unspaced [
         cloudroot @os "/" filename  ; cached cloudfront is okay for the binary
     ]
 

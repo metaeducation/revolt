@@ -764,7 +764,7 @@ sys.util/make-scheme [
 
 
 make-curl-command: lambda [spec [object!] "comes from port.spec"] [
-    ensure url! spec.ref
+    ensure tag! spec.ref
     ensure [<null> block!] spec.headers
     ensure [<null> word!] spec.method
 

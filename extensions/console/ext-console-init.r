@@ -977,5 +977,5 @@ export upgrade: proc [
     ; Should this be a console-detected command, like Q, or is it meaningful
     ; to define this as a function you could call from code?
     ;
-    do @upgrade
+    do #upgrade
 ]
