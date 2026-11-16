@@ -2189,7 +2189,8 @@ static void Apply_Quotes_If_Pending(Element* e, ScanState* S) {
 static Result(None) Flush_Pending_On_End(ScanState* S) {
     attempt {
         if (S->sigil_pending) {  // e.g. "$]" or "''$]"
-            assert(not S->quasi_pending);
+            if (S->quasi_pending)  // e.g. "~$]", needs to be "~$~"
+                return_fail ("Sigil after ~ needs closing ~ (e.g. ~$~)");
             Init_Sigiled_Blank(PUSH(), unwrap S->sigil_pending);
             S->sigil_pending = SIGIL_0;
         }
@@ -2659,6 +2660,11 @@ static Bounce Scanner_Executor_Core(Level* const L) {
     Init_Word(PUSH(), symbol);
     goto lookahead;
 
+  // 1. Sigil characters are only legal at the head of a token, where they
+  //    are split off before getting here.  Intern_Symbol() asserts that it
+  //    never sees one, so the scanner must be what turns one in the middle
+  //    or at the tail of a WORD! into a syntax error.
+
 } case TOKEN_RUNE: { /////////////////////////////////////////////////////////
 
     Size mold_size = Strand_Size(mo->strand) - mo->base.size;
@@ -2780,7 +2786,7 @@ static Bounce Scanner_Executor_Core(Level* const L) {
         return BOUNCE_OUT;
     }
 
-    Drop_Level(sub);
+    dont(Drop_Level(sub));  // label reads SUBLEVEL's baseline, then drops it
     goto construct_scan_to_stack_finished;
 
 } case TOKEN_END:  // handled way above, before the switch()
@@ -2805,6 +2811,9 @@ static Bounce Scanner_Executor_Core(Level* const L) {
 
   // The Sigil is first, then the quasi, then the quotes.  (''~$foo~ is legal
   // but $~''foo~ is not)
+
+    if (S->sigil_pending and not Any_Sigilable(TOP_ELEMENT))  // e.g. "$%a"
+        return_fail ("Sigils ($ @ ^) can't be applied to that type of value");
 
     Apply_Sigil_If_Pending(TOP_ELEMENT, S);
 
