@@ -721,6 +721,21 @@ IMPLEMENT_GENERIC(TO, Any_Utf8)
         return_fail ("This used to Try_Scan_URL_To_Stack");
     }
 
+    if (to == HEART_URL) {
+        Api(Value*) url = rebUndecayed("decode-url", rebQ(v));
+        if (Is_Failure(url)) {
+            Copy_Cell(OUT, url);
+            rebRelease(url);
+            return BOUNCE_OUT;
+        }
+        require (
+          Stable* stable = Decay_If_Unstable(url)
+        );
+        Copy_Cell(OUT, stable);
+        rebRelease(url);
+        return BOUNCE_OUT;
+    }
+
     if (
         to == HEART_INTEGER
         or to == HEART_DECIMAL

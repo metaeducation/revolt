@@ -366,10 +366,17 @@ Result(None) Get_Path_Push_Refinements(Level* level_)
         Copy_Cell(spare_left, As_Stable(OUT));
     }
     else if (Is_Chain(at)) {
-        if ((at + 1 != tail) and not Is_Blank(at + 1)) {
+        if (
+            (at + 1 != tail)
+            and not ((at + 2 == tail) and Is_Blank(at + 1))  // foo:bar/
+        ) {
             error = Error_User(
                 "CHAIN! can only be last item in a path right now"
             );
+            goto return_error;
+        }
+        if (not Is_Cell_Listlike(at)) {
+            error = Error_User("CHAIN! in path must be a listlike value");
             goto return_error;
         }
         Get_Chain_Push_Refinements(

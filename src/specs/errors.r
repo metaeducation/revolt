@@ -128,7 +128,7 @@ no-binding:         "Couldn't get binding for $1"
 ambiguous-infix:    "Ambiguous infix expression--use GROUP! to clarify"
 invalid-lookback:   "Invalid lookback situation for infix function"
 
-sequence-too-short: "PATH!, CHAIN!, and TUPLE! must have more than 2 items"
+sequence-too-short: "PATH!, CHAIN!, and TUPLE! must have two or more items"
 conflated-sequence: "Sequence would conflate with $1 -- $2"
 bad-sequence-blank: "BLANK only legal at head and tail of sequence"
 bad-sequence-item:  "Value is not a valid $1 element: $2"

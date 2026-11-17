@@ -1954,7 +1954,7 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
 
   prescan_word: { /////////////////////////////////////////////////////////////
 
-   if (*S->end == ':') {  // word:  url:words
+/*   if (*S->end == ':') {  // word:  url:words
         cp = S->end + 1;
         if (*cp == ':') {
             // saw :: which we treat as URL, e.g. log::error
@@ -1991,10 +1991,8 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
               case ']':
               case ')':
               case '}': {
-                if (base == TOP_INDEX) {  // closing the code
-                    assert(false);
-                    return_fail ("This returned TOKEN_URL");
-                }
+                if (base == TOP_INDEX)  // closing the code
+                    return_fail (Error_Bad_Sequence_Blank_Raw());
 
                 Byte want = unwrap First_Byte_Of_Rune_If_Single_Codepoint(
                     TOP_STABLE
@@ -2024,9 +2022,8 @@ static Result(Token) Locate_Token_May_Push_Mold(Molder* mo, Level* L)
             return_fail (Error_Mismatch(want, *cp));
         }
 
-        assert(false);
-        return_fail ("This used to return TOKEN_URL");
-    }
+        return_fail (Error_Bad_Sequence_Blank_Raw());
+    } */
     if (Has_Lex_Flag(flags, LEX_SPECIAL_AT)) {
         token = TOKEN_EMAIL;
         goto prescan_subsume_all_dots;

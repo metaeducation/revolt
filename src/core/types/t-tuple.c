@@ -703,24 +703,22 @@ IMPLEMENT_GENERIC(MOLDIFY, Any_Sequence)
             Append_Codepoint(mo->strand, interstitial);
         }
 
-        if (Is_Blank(element)) {  // space blank invisibly
-            assert(i == 0 or i == len - 1);  // head or tail only
-        }
-        else {
-            if (Is_Word(element)) {  // double-check word legality in debug
-                const Symbol* s = Word_Symbol(element);
-                if (Get_Flavor_Flag(SYMBOL, s, ILLEGAL_IN_ANY_SEQUENCE))
-                    assert(
-                        heart == HEART_CHAIN
-                        and Sequence_Len(c) == 2
-                    );
-                if (heart == HEART_TUPLE)
-                    assert(Not_Flavor_Flag(SYMBOL, s, ILLEGAL_IN_TUPLE));
-                UNUSED(s);
-            }
+        if (Is_Blank(element))
+            continue;  // blanks show nothing in the sequence
 
-            Mold_Element(mo, element);  // ignore CELL_FLAG_NEWLINE_BEFORE [1]
+        if (Is_Word(element)) {  // double-check word legality in debug
+            const Symbol* s = Word_Symbol(element);
+            if (Get_Flavor_Flag(SYMBOL, s, ILLEGAL_IN_ANY_SEQUENCE))
+                assert(
+                    heart == HEART_CHAIN
+                    and Sequence_Len(c) == 2
+                );
+            if (heart == HEART_TUPLE)
+                assert(Not_Flavor_Flag(SYMBOL, s, ILLEGAL_IN_TUPLE));
+            UNUSED(s);
         }
+
+        Mold_Element(mo, element);  // ignore CELL_FLAG_NEWLINE_BEFORE [1]
     }
 
     return TRASH_OUT;

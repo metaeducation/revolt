@@ -542,7 +542,7 @@ DECLARE_NATIVE(FILE_TO_LOCAL)
 //
 //  "Returns the current directory path"
 //
-//      return: [<null> file! url!]
+//      return: [<null> file! tag!]
 //  ]
 //
 DECLARE_NATIVE(WHAT_DIR)
@@ -569,7 +569,7 @@ DECLARE_NATIVE(WHAT_DIR)
         Stable* refresh = Get_Current_Dir_Value();
         rebElide("system.options.current-path:", rebR(refresh));
     }
-    else if (not Is_Url(current_path))
+    else if (not Is_Tag(current_path))
         panic (current_path);  // lousy error [2]
 
     return rebValue( // "caller mutates"
@@ -583,8 +583,8 @@ DECLARE_NATIVE(WHAT_DIR)
 //
 //  "Changes the current path (where scripts with relative paths will be run)"
 //
-//      return: [file! url!]
-//      path [file! url!]
+//      return: [file! tag!]
+//      path [file! tag!]
 //  ]
 //
 DECLARE_NATIVE(CHANGE_DIR)
@@ -596,7 +596,7 @@ DECLARE_NATIVE(CHANGE_DIR)
         Get_System(SYS_OPTIONS, OPTIONS_CURRENT_PATH)
     );
 
-    if (Is_Url(arg)) {
+    if (Is_Tag(arg)) {
         // There is no directory listing protocol for HTTP (although this
         // needs to be methodized to work for SFTP etc.)  So this takes
         // your word for it for the moment that it's a valid "directory".

@@ -143,10 +143,7 @@ INLINE Result(None) Check_Sequence_Element(
 
     if (h == HEART_BLANK) {  // heart of quasars, sigils, lone quote
         assert(not is_head or Is_Quasar(v));  // callers check blanks/sigils
-        if (Is_Blank(v))  // undecorated blank (not [$ ^ @ ~ '])
-            return_fail (
-                Error_Bad_Sequence_Blank_Raw()  // blank only legal at head
-            );
+        possibly(Is_Blank(v));  // `a//b` or `::<tag>::` are legal!
         return none;  // ~:$:~ etc. are legal
     }
 

@@ -141,11 +141,17 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
     user-char:   complement make bitset! ":@"
     host-char:   complement make bitset! ":/?"
 
-    rules: [
+    rules: [  ; returns ERROR! if caller should fail, FAILURE! if panic
+        ;
         ; Required scheme name, but "//" is optional (without it is a "URN")
         ; https://en.wikipedia.org/wiki/Uniform_Resource_Name
         ;
-        [emit scheme: /as (word!) across some scheme-char] ":" opt "//"
+        [
+            [emit scheme: /as (word!) across some scheme-char] ":" opt "//"
+            |
+            let i: <input>
+            accept (make error! spaced ["String is not URL-like:" i])
+        ]
 
         ; optional user [:pass] @
         [
@@ -203,14 +209,19 @@ parse: ~<Higher-level %uparse.r hasn't set SYS.UTIL/PARSE yet>~
     ; list of fields but breaks them down differently and uses different names.
     ; That should be reviewed.
     ;
-    decode-url: lambda [  ; this function is bound in sys.util/*parse-url
+    decode-url: func [  ; this function is bound in sys.util/*parse-url
         "Decode a URL according to rules of sys.util/*parse-url"
-        []: [url!]
+        return: [url!]
         url [tag! text!]
     ][
-        as url! parse url [gather rules] except [
-            panic ["Could not decode URL to an object:" url]
+        let result: parse url [gather rules] except [
+            panic ["URL-like string was not fully legal as URL:" url]
         ]
+        if object? result [
+            return as url! result
+        ]
+        assert [error? result]
+        return fail result
     ]
 ]
 
