@@ -88,8 +88,10 @@ runs:
       env:
         R3_EXECUTABLE: ${{ inputs.executable }}
       run: |
-        "$R3_EXECUTABLE" make.r --help
-        "$R3_EXECUTABLE" make.r --help all
+        for topic in "" usage targets configs options os-id extensions all; do
+          echo ">>> Testing make.r --help ${topic:-"(default)"}"
+          "$R3_EXECUTABLE" make.r --help $topic
+        done
 
 
     # Besides just testing success cases, it's important to make sure panics
